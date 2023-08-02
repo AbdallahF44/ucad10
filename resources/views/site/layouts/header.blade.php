@@ -292,4 +292,10 @@
             <div class="inner">
                 <form class="search-form" action="#">
                     <input type="text" class="edublink-search-popup-field" placeholder="Search Here...">
-                    <but
+                    <button class="submit-button"><i class="icon-2"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Search Popup  -->
+</header>

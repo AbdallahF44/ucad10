@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 fgdgf
 @endsection
 
