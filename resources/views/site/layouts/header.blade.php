@@ -48,7 +48,7 @@
                                     <li><a href="course-details.html">{{__('Our Partners')}}</a></li>
                                 </ul>
                             </li>
-                            <li class="has-droupdown"><a href="#">{{__('Departments')}}</a>
+                            <li class="has-droupdown"><a href="#">{{__('site.Departments')}}</a>
                                 <ul class="submenu">
                                     <li><a href="{{route('inner')}}">Course Style 1</a></li>
                                     <li><a href="course-two.html">Course Style 2</a></li>
