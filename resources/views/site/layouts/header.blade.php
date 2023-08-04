@@ -38,62 +38,62 @@
                 <div class="header-mainnav">
                     <nav class="mainmenu-nav">
                         <ul class="mainmenu">
-                            <li class="has-droupdown"><a href="#">{{__('About College')}}</a>
+                            <li class="has-droupdown"><a href="#">{{__('site.About College')}}</a>
                                 <ul class="submenu">
-                                    <li><a href="{{route('inner')}}">{{__('Welcome Speech')}}</a></li>
-                                    <li><a href="course-two.html">{{__('Who We Are')}}</a></li>
-                                    <li><a href="course-three.html">{{__('Vision and mission')}}</a></li>
-                                    <li><a href="course-four.html">{{__('General Objectives')}}</a></li>
-                                    <li><a href="course-five.html">{{__('College Council')}}</a></li>
-                                    <li><a href="course-details.html">{{__('Our Partners')}}</a></li>
+                                    <li><a href="{{route('inner')}}">{{__('site.Welcome Speech')}}</a></li>
+                                    <li><a href="course-two.html">{{__('site.Who We Are')}}</a></li>
+                                    <li><a href="course-three.html">{{__('site.Vision and mission')}}</a></li>
+                                    <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
+                                    <li><a href="course-five.html">{{__('site.College Council')}}</a></li>
+                                    <li><a href="course-details.html">{{__('site.Our Partners')}}</a></li>
                                 </ul>
                             </li>
                             <li class="has-droupdown"><a href="#">{{__('site.Departments')}}</a>
                                 <ul class="submenu">
-                                    <li><a href="{{route('inner')}}">Course Style 1</a></li>
-                                    <li><a href="course-two.html">Course Style 2</a></li>
-                                    <li><a href="course-three.html">Course Style 3</a></li>
-                                    <li><a href="course-four.html">Course Style 4</a></li>
-                                    <li><a href="course-five.html">Course Style 5</a></li>
-                                    <li><a href="course-details.html">Course Details 1</a></li>
-                                    <li><a href="course-details-2.html">Course Details 2</a></li>
-                                    <li><a href="course-details-3.html">Course Details 3</a></li>
+                                    <li><a href="{{route('inner')}}">{{__('site.Course Style 1')}}</a></li>
+                                    <li><a href="course-two.html">{{__('site.Course Style 2')}}</a></li>
+                                    <li><a href="course-three.html">{{__('site.Course Style 3')}}</a></li>
+                                    <li><a href="course-four.html">{{__('site.Course Style 4')}}</a></li>
+                                    <li><a href="course-five.html">{{__('site.Course Style 5')}}</a></li>
+                                    <li><a href="course-details.html">{{__('site.Course Details 1')}}</a></li>
+                                    <li><a href="course-details-2.html">{{__('site.Course Details 2')}}</a></li>
+                                    <li><a href="course-details-3.html">{{__('site.Course Details 3')}}</a></li>
                                 </ul>
                             </li>
 
-                            @if (lang() == 'ar')
-                                <li class="has-droupdown"><a href="#">{{__("Admission and Registration")}}</a>
+                          
+                                <li class="has-droupdown"><a href="#">{{__("site.Admission and Registration")}}</a>
                                     <ul class="submenu">
                                         <!-- <li><a href="{{route('inner')}}">About Admission And Registration</a> -->
-                                        <li><a href="course-two.html">{{__("About Admission")}}</a></li>
-                                        <li><a href="course-three.html">{{__("Grading System")}}</a></li>
-                                        <li><a href="course-four.html">{{__("New Students")}}</a></li>
-                                        <li><a href="course-five.html">{{__("Frequently Asked Questions")}}</a></li>
-                                        <li><a href="course-details.html">{{__("Students’ Guidelines")}}</a></li>
+                                        <li><a href="course-two.html">{{__("site.About Admission")}}</a></li>
+                                        <li><a href="course-three.html">{{__("site.Grading System")}}</a></li>
+                                        <li><a href="course-four.html">{{__("site.New Students")}}</a></li>
+                                        <li><a href="course-five.html">{{__("site.Frequently Asked Questions")}}</a></li>
+                                        <li><a href="course-details.html">{{__("site.Students’ Guidelines")}}</a></li>
                                     </ul>
                                 </li>
-                            @endif
-                            <li class="has-droupdown"><a href="#">{{__("Academic Degree")}}</a>
+                            
+                            <li class="has-droupdown"><a href="#">{{__("site.Academic Degree")}}</a>
                                 <ul class="mega-menu">
                                     <li>
-                                        <h6 class="menu-title">{{__("Bachelor")}}</h6>
+                                        <h6 class="menu-title">{{__("site.Bachelor")}}</h6>
                                         <ul class="submenu mega-sub-menu-01">
                                             <li><a href="about-one.html">About Us 1</a></li>
                                             <li><a href="about-two.html">About Us 2</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <h6 class="menu-title">{{__("Diploma")}}</h6>
+                                        <h6 class="menu-title">{{__('site.Diploma')}}</h6>
                                         <ul class="submenu mega-sub-menu-01">
-                                            <li><a href="gallery-grid.html">Gallery Grid</a></li>
-                                            <li><a href="gallery-masonry.html">Gallery Masonry</a></li>
+                                            <li><a href="gallery-grid.html">{{__('site.Gallery Grid')}}</a></li>
+                                            <li><a href="gallery-masonry.html">{{__('site.Gallery Masonry')}}</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
 
 
-                            <li><a href="#">{{__("Research")}}</a>
+                            <li><a href="#">{{__("site.Research")}}</a>
 
                             </li>
                         </ul>
