@@ -17,6 +17,7 @@ return [
     'Academic Degree'=> 'الدرجة الأكاديمية',
     'Bachelor'=> 'بكالوريوس',
     'Diploma'=> 'دبلوم',
+    'Home'=> 'الرئيسية',
 
 
 

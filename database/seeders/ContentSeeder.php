@@ -27,11 +27,8 @@ class ContentSeeder extends Seeder
         ]);
 
         
-        DB::table('contents')->insert([]);
+        // DB::table('contents')->insert([]);
 
-        // $table->foreignIdFor(ContentType::class);
-        // $table->foreignIdFor(Language::class);
-        // $table->string('title');
-        // $table->text('content');
+        
     }
 }

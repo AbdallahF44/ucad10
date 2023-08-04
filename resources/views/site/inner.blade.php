@@ -1,29 +1,32 @@
 @extends('site.layouts.app')
 
 @section('title')
-    الرئيسية
+   {{__('site.Who We Are')}}
+@endsection
+
+@php $siteName = getSiteName(); @endphp
+
+@section('content_title')
+{{$siteName}}|{{__('site.Who We Are')}}
 @endsection
 
 @section('content')
-  <div>
-     
-      @php
-        $currentLanguage = app()->getLocale();
-      @endphp
-    <h2>{{($currentLanguage === 'ar') ? env('SITE_NAME_AR') : env('SITE_NAME_EN')}} </h2>
-  </div>
-
-    <div class="container">
-    <h1>{{ __('site.Who We Are') }}</h1>
-    
+@include('site.layouts.main-toolbar')
+ 
     @php
-       
-        $title = ($currentLanguage === 'ar') ? 'من نحن ' : 'who we are';
-        $content = App\Models\Content::where('title', $title)->where('language_id', ($currentLanguage === 'ar') ? 1 : 2)->first();
+
+    $localizedContent =  App\Models\LocalizedContent::where('title','LIKE', '%who we are%')->first();
+
+
+    $Title =  $localizedContent->title;
+
+    $Description =  $localizedContent->content;
+
+
     @endphp
-    
-    <p>{{ $content->content }}</p>
-    </div>
+
+    <h3>{{$Title}}</h3>
+    <p>{{ $Description}}</p>
 
 
 {{--    @include('site.layouts.testimonial')--}}

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             ContentTypeSeeder::class,
             ContentSeeder::class,
             SettingSeeder::class,
+            LocalizedContentSeeder::class,
+
         ]);
     }
 }
