@@ -41,7 +41,7 @@
                             <li class="has-droupdown"><a href="#">{{__('site.About College')}}</a>
                                 <ul class="submenu">
                                     <li><a href="{{route('inner')}}">{{__('site.Welcome Speech')}}</a></li>
-                                    <li><a href="course-two.html">{{__('site.Who We Are')}}</a></li>
+                                    <li><a href="{{route('inner')}}">{{__('site.Who We Are')}}</a></li>
                                     <li><a href="course-three.html">{{__('site.Vision and mission')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
                                     <li><a href="course-five.html">{{__('site.College Council')}}</a></li>

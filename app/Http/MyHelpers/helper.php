@@ -12,6 +12,16 @@ use Illuminate\Support\Arr;
 }
 
 */
+if (!function_exists('getSiteName')) {
+    function getSiteName($default = 'My Site') {
+
+        $currentLanguage = app()->getLocale();
+        $key = ($currentLanguage === 'ar') ? 'اسم الموقع' : 'site_name';
+
+        return \App\Models\Setting::getValueByKey($key, $default);
+    }
+}
+
 
 if (!function_exists('aurl')) {
     function aurl($url = null)
