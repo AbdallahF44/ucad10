@@ -1,25 +1,25 @@
 <header class="edu-header header-style-2">
-{{--    <div class="header-top-bar">--}}
-{{--        <div class="container">--}}
-{{--            <div class="header-top">--}}
-{{--                <div class="header-top-left">--}}
-{{--                    <ul class="header-info">--}}
-{{--                        <li><a href="tel:+011235641231"><i class="icon-phone"></i>Call: 123 4561 5523</a></li>--}}
-{{--                        <li><a href="mailto:info@edublink.com" target="_blank"><i class="icon-envelope"></i>Email:--}}
-{{--                                info@edublink.com</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <div class="header-top-right">--}}
-{{--                    <ul class="header-info">--}}
-{{--                        <li><a href="#">Login</a></li>--}}
-{{--                        <li><a href="#">Register</a></li>--}}
-{{--                        <li class="header-btn"><a href="#" class="edu-btn btn-secondary btn-medium">Apply Now <i--}}
-{{--                                    class="icon-4"></i></a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="header-top-bar">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-top-left">
+                    <ul class="header-info">
+                        <li><a href="tel:+011235641231"><i class="icon-phone"></i>{{__('site.Call')}}: {{env('TELEPHONE_NUMBER')}}</a></li>
+                        <li><a href="mailto:info@edublink.com" target="_blank"><i class="icon-envelope"></i>{{__('site.Email')}}:
+                               {{ env('EMAIL_ADDRESS')}}</a></li>
+                    </ul>
+                </div>
+                <div class="header-top-right">
+                    <ul class="header-info">
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Register</a></li>
+                        <li class="header-btn"><a href="#" class="edu-btn btn-secondary btn-medium">Apply Now <i class="icon-4"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="edu-sticky-placeholder"></div>
     <div class="header-mainmenu">
         <div class="container">

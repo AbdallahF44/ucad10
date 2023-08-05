@@ -20,6 +20,9 @@ return [
     'Diploma'=>'Diploma',
 
     'Home'=>'Home',
+    'Email'=>'Email',
+    'Call'=>'Call',
+    'Fax'=>'Fax',
 
 
     'password' => 'The provided password is incorrect.',
