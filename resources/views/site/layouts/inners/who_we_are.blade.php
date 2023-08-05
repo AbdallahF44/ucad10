@@ -1,15 +1,23 @@
 @extends('site.layouts.app')
 
 @section('title')
-    الرئيسية
+   {{__('site.Who We Are')}}
+@endsection
+
+
+@section('content_title')
+{{$siteName}}|{{__('site.Who We Are')}}
 @endsection
 
 @section('content')
+@include('site.layouts.main-toolbar')
+ 
+    <h3>{{$title}}</h3>
+    <p>{{ $description}}</p>
 
-    <div class="container">
-        <h1>Department</h1>
-    </div>
+
 {{--    @include('site.layouts.testimonial')--}}
+
     <!-- Start Brand Area  -->
     @include('site.layouts.brand')
     <!-- End Brand Area  -->

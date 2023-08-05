@@ -77,6 +77,22 @@ STYLESHEET INDEXING
 -------------------------*/
 /* @import url("../../css2"); */
 
+/* Change the background color of the toolbar */
+#kt_toolbar {
+    /* background-color: #f6f3f3; */
+    background-color: #fefafa;
+}
+
+/* Change the text color of the title */
+#kt_toolbar h1 {
+    /* color: #ffffff;  */
+    color: #020034; 
+    font-size: 24px; 
+    font-style: bold; 
+    font-family: cursive; /* Replace with your desired font family */
+
+}
+
 :root {
     --color-primary: #1ab69d;
     --color-secondary: #ee4a62;

@@ -1,3 +1,10 @@
+@php
+$telephoneNumber = env('TELEPHONE_NUMBER');
+$faxNumber = env('FAX_NUMBER');
+$emailAddress = env('EMAIL_ADDRESS');
+
+@endphp
+
 <footer class="edu-footer footer-dark bg-image footer-style-3">
     <div class="footer-top">
         <div class="container">
@@ -12,9 +19,9 @@
                         <p class="description">Lorem ipsum dolor amet consecto adi pisicing elit sed eiusm tempor incidid unt labore dolore.</p>
                         <div class="widget-information">
                             <ul class="information-list">
-                                <li><span>Add:</span>70-80 Upper St Norwich NR2</li>
-                                <li><span>Call:</span><a href="tel:+011235641231">+01 123 5641 231</a></li>
-                                <li><span>Email:</span><a href="mailto:info@edublink.com" target="_blank">info@edublink.com</a></li>
+                                <li><span>Fax:</span>{{env('FAX_NUMBER')}}</li>
+                                <li><span>Call:</span><a href="tel:+011235641231">{{env('TELEPHONE_NUMBER')}}</a></li>
+                                <li><span>Email:</span><a href="acas@gmail.com" target="_blank">{{env('EMAIL_ADDRESS')}}</a></li>
                             </ul>
                         </div>
                     </div>
