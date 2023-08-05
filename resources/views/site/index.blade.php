@@ -5,7 +5,7 @@
 @endsection
 
 @section('content_title')
-{{__('site.Home')}}
+{{getSiteName()}}|{{__('site.Home')}}
 @endsection
 
 @section('content')

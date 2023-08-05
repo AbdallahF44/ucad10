@@ -22,9 +22,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            LanguageSeeder::class,
-            ContentTypeSeeder::class,
-            ContentSeeder::class,
             SettingSeeder::class,
             LocalizedContentSeeder::class,
 

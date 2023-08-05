@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocalizedContentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,11 @@ Route::get('/', function () {
 //     return view('site.index');
 // });
 
-Route::get('/inner', function () {
-    return view('site.inner');
-})->name('inner');
+// Route::get('/inner', function () {
+//     return view('site.inner');
+// })->name('inner');
+Route::get('/who_we_are', [LocalizedContentController::class, 'who_we_are']
+)->name('who_we_are');
 
 
 Route::get('lang/{lang}', function ($lang) {

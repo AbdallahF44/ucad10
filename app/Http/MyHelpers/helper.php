@@ -3,6 +3,7 @@
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Request;
 use App\Models\PermissionModels\Adminpermission;
+use App\Models\Setting;
 use Illuminate\Support\Arr;
 
 /*if (!function_exists('setting')) {
@@ -15,10 +16,16 @@ use Illuminate\Support\Arr;
 if (!function_exists('getSiteName')) {
     function getSiteName($default = 'My Site') {
 
-        $currentLanguage = app()->getLocale();
-        $key = ($currentLanguage === 'ar') ? 'اسم الموقع' : 'site_name';
+        // $currentLanguage = app()->getLocale();
+        // $key = ($currentLanguage === 'ar') ? 'اسم الموقع' : 'site_name';
+        
+        $site_name = Setting::where('key','LIKE', '%site_name%')->first();
+        // $key =  $site_name->key;
+        $site_name =  $site_name->value; 
+        return $site_name ? $site_name : $default;
+ 
 
-        return \App\Models\Setting::getValueByKey($key, $default);
+        // return \App\Models\Setting::getValueByKey($key, $default);
     }
 }
 

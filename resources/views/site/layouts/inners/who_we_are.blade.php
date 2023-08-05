@@ -4,7 +4,6 @@
    {{__('site.Who We Are')}}
 @endsection
 
-@php $siteName = getSiteName(); @endphp
 
 @section('content_title')
 {{$siteName}}|{{__('site.Who We Are')}}
@@ -13,20 +12,8 @@
 @section('content')
 @include('site.layouts.main-toolbar')
  
-    @php
-
-    $localizedContent =  App\Models\LocalizedContent::where('title','LIKE', '%who we are%')->first();
-
-
-    $Title =  $localizedContent->title;
-
-    $Description =  $localizedContent->content;
-
-
-    @endphp
-
-    <h3>{{$Title}}</h3>
-    <p>{{ $Description}}</p>
+    <h3>{{$title}}</h3>
+    <p>{{ $description}}</p>
 
 
 {{--    @include('site.layouts.testimonial')--}}

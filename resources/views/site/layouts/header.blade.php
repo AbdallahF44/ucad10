@@ -40,8 +40,8 @@
                         <ul class="mainmenu">
                             <li class="has-droupdown"><a href="#">{{__('site.About College')}}</a>
                                 <ul class="submenu">
-                                    <li><a href="{{route('inner')}}">{{__('site.Welcome Speech')}}</a></li>
-                                    <li><a href="{{route('inner')}}">{{__('site.Who We Are')}}</a></li>
+                                    <li><a href="">{{__('site.Welcome Speech')}}</a></li>
+                                    <li><a href="{{route('who_we_are')}}">{{__('site.Who We Are')}}</a></li>
                                     <li><a href="course-three.html">{{__('site.Vision and mission')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
                                     <li><a href="course-five.html">{{__('site.College Council')}}</a></li>
@@ -50,7 +50,7 @@
                             </li>
                             <li class="has-droupdown"><a href="#">{{__('site.Departments')}}</a>
                                 <ul class="submenu">
-                                    <li><a href="{{route('inner')}}">{{__('site.Course Style 1')}}</a></li>
+                                    <li><a href="">{{__('site.Course Style 1')}}</a></li>
                                     <li><a href="course-two.html">{{__('site.Course Style 2')}}</a></li>
                                     <li><a href="course-three.html">{{__('site.Course Style 3')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.Course Style 4')}}</a></li>
@@ -64,7 +64,7 @@
                           
                                 <li class="has-droupdown"><a href="#">{{__("site.Admission and Registration")}}</a>
                                     <ul class="submenu">
-                                        <!-- <li><a href="{{route('inner')}}">About Admission And Registration</a> -->
+                                        <!-- <li><a href="">About Admission And Registration</a> -->
                                         <li><a href="course-two.html">{{__("site.About Admission")}}</a></li>
                                         <li><a href="course-three.html">{{__("site.Grading System")}}</a></li>
                                         <li><a href="course-four.html">{{__("site.New Students")}}</a></li>
