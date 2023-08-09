@@ -13,7 +13,6 @@
     <!-- Favicons -->
     {{-- <link href="{{url('frontSite/style')}}/assets/img/logo.png" rel="icon"> --}}
     <link href="{{ asset('site/logo.png') }}" rel="apple-touch-icon">
-
     <!-- CSS ============================================ -->
 
     @include('site.layouts.styles')

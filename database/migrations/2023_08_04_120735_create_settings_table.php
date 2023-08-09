@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->json('key');
-            $table->json('value');
+            $table->string('key');
+            $table->string('value');
             // $table->string('key')->unique();
             // $table->text('value')->nullable();
             $table->softDeletes();
