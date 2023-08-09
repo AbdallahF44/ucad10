@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/dashboard', function () {
+    return view('dashboard.welcome');
+})->name('home');
+
+Route::get('colors',[\App\Http\Controllers\Controller::class,''])->name('colors');
+
 Route::get('/', function () {
     return view('site.index');
 });
