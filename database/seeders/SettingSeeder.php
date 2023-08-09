@@ -15,27 +15,14 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         DB::table('settings')->insert([
-            'key'=> 'site_name',
-            'value'=> 'Ability Development College',
-           ]);
-    
-           DB::table('settings')->insert([
-            'key'=> 'اسم الموقع',
-            'value'=> 'كلية تنمية القدرات',
+            'name'=> 'site_name',
+            'url'=> 'Ability Development College',
            ]);
 
            DB::table('settings')->insert([
-            'key'=> 'facebook',
-            'value'=> '',
+            'name'=> 'اسم الموقع',
+            'url'=> 'كلية تنمية القدرات',
            ]);
-    
-         
-         
-
-
-
-
-
 
 
         // $setting = new Setting();

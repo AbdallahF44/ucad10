@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
     return view('dashboard.welcome');
 })->name('home');
 
-Route::get('colors',[\App\Http\Controllers\Controller::class,''])->name('colors');
+Route::get('settings',\App\Http\Livewire\Settings\Index::class)->name('settings');
 
 Route::get('/', function () {
     return view('site.index');
