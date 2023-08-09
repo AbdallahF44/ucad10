@@ -24,6 +24,18 @@ return [
     'Call'=>'Call',
     'Fax'=>'Fax',
 
+    'E services'=>'E services',
+    'continuous education'=>'continuous education',
+    'Lecturers'=>'Lecturers',
+    'Students'=>'Students',
+
+    'About Admission'=>'About Admission',
+    'Grading System'=>'Grading System',
+    'New Students'=>'New Students',
+    'Frequently Asked Questions'=>'Frequently Asked Questions',
+    'Students’ Guidelines'=>'Students’ Guidelines',
+
+
 
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',

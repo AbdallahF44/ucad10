@@ -80,7 +80,8 @@ STYLESHEET INDEXING
 /* Change the background color of the toolbar */
 #kt_toolbar {
     /* background-color: #f6f3f3; */
-    background-color: #fefafa;
+    /* background-color: #fefafa; */
+    background-color: #ffffff;
 }
 
 /* Change the text color of the title */
@@ -90,6 +91,7 @@ STYLESHEET INDEXING
     font-size: 24px; 
     font-style: bold; 
     font-family: cursive; /* Replace with your desired font family */
+    margin-inline-start: 100px;
 
 }
 
@@ -25113,6 +25115,17 @@ body .tpd-size-medium .tpd-content {
     font-weight: 400;
 }
 
+/* my meny */
+.mainmenu-nav .mainmenu li.has-droupdown > .mymenu::after {
+    position: absolute;
+    content: "\e91e";
+    font-family: 'icomoon';
+    LEFT: 70px;
+    top: 5px;
+    font-size: 6px;
+    font-weight: 400;
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .mainmenu-nav .mainmenu li.has-droupdown > a::after {
         right: 0px;
@@ -25465,7 +25478,7 @@ body .tpd-size-medium .tpd-content {
     }
 }
 
-.header-top .header-info li:after {
+/* .header-top .header-info li:after {
     content: "";
     height: 100%;
     width: 1px;
@@ -25475,8 +25488,8 @@ body .tpd-size-medium .tpd-content {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    right: 0;
-}
+    right: 0px;
+} */
 
 .header-top .header-info li a {
     color: var(--color-white);

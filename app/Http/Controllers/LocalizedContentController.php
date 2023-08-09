@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LocalizedContent;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class LocalizedContentController extends Controller
@@ -13,6 +14,7 @@ class LocalizedContentController extends Controller
         $title =  $localizedContent->title;
     
         $description =  $localizedContent->content;
+        // return $siteName;
         return view('site.layouts.inners.who_we_are', compact('siteName','title','description'));
     }
 }

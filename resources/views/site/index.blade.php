@@ -4,13 +4,12 @@
 الرئيسية
 @endsection
 
-@section('content_title')
+{{-- @section('content_title')
 {{getSiteName()}}|{{__('site.Home')}}
-@endsection
+@endsection --}}
 
 @section('content')
-
-@include('site.layouts.main-toolbar')
+{{-- @include('site.layouts.main-toolbar') --}}
 
     <!--=====================================-->
     <!--=       Hero Banner Area Start      =-->
