@@ -14,30 +14,45 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('settings')->insert([
+            'key'=> 'site_name',
+            'value'=> 'Ability Development College',
+           ]);
+    
+           DB::table('settings')->insert([
+            'key'=> 'اسم الموقع',
+            'value'=> 'كلية تنمية القدرات',
+           ]);
 
-        $setting = new Setting();
+           DB::table('settings')->insert([
+            'key'=> 'facebook',
+            'value'=> '',
+           ]);
+    
+         
+         
 
-        $setting->setTranslations('key', [
-            'en' => 'site_name',
-            'ar' => 'اسم الموقع'
-        ]);
 
-        $setting->setTranslations('value', [
-            'en' => 'Ability Development College',
-            'ar' => 'كلية تنمية القدرات',
 
-        ]);
 
-        $setting->save();
 
-    //    DB::table('settings')->insert([
-    //     'key'=> 'site_name',
-    //     'value'=> 'Ability Development College',
-    //    ]);
 
-    //    DB::table('settings')->insert([
-    //     'key'=> 'اسم الموقع',
-    //     'value'=> 'كلية تنمية القدرات',
-    //    ]);
+
+        // $setting = new Setting();
+
+        // $setting->setTranslations('key', [
+        //     'en' => 'site_name',
+        //     'ar' => 'اسم الموقع'
+        // ]);
+
+        // $setting->setTranslations('value', [
+        //     'en' => 'Ability Development College',
+        //     'ar' => 'كلية تنمية القدرات',
+
+        // ]);
+
+        // $setting->save();
+
+
     }
 }

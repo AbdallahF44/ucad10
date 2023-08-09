@@ -23,7 +23,7 @@ Route::get('colors',[\App\Http\Controllers\Controller::class,''])->name('colors'
 
 Route::get('/', function () {
     return view('site.index');
-});
+})->name('home');
 
 // Route::get('/frontSite', function () {
 //     return view('site.index');

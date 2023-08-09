@@ -18,12 +18,13 @@ class Setting extends Model
     protected $fillable = ['key', 'value'];
 
 
-//     public static function getValueByKey($key, $default = null)
-// {
-//     $setting = self::where('key', $key)->first();
-
-//     return $setting ? $setting->value : $default;
-// }
+    public static function getValueByKey($key, $default = 'site_name')
+{
+    $setting = Setting::where('key', $key)->first();
+    // dd($setting->value);
+    return $setting ? $setting->value : $default;
+   
+}
 
 //// fetch settings wherever
 //$siteName = Setting::getValueByKey('site_name', 'My Site');
