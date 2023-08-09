@@ -6,7 +6,7 @@
 
 
 @section('content_title')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{$siteName}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{getSiteName()}}</a></li>
     <li class="breadcrumb-item active" aria-current="page"> <a href="{{route('who_we_are')}}">{{ __('site.Who We Are') }}</a></li>
 
 @endsection
