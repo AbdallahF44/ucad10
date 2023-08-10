@@ -46,6 +46,8 @@
                                     Advertisement
                                 @elseif($content->type==\App\Models\Article::TYPE_NEWS)
                                     News
+                                @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
+                                UNCATEGORIZED
                                 @endif
                             </div>
                         </td>

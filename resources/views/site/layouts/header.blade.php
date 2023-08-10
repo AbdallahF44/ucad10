@@ -19,7 +19,7 @@
                                     <li class="has-droupdown"><a class="mymenu" href="#"> {{__('site.E services')}}</a>
                                         <ul class="submenu">
                                             <li><a href="">{{__('site.Lecturers')}}</a></li>
-                                            <li><a href="{{route('who_we_are')}}">{{__('site.Students')}}</a></li>
+                                            <li><a href="{{route('who-we-are')}}">{{__('site.Students')}}</a></li>
 
                                         </ul>
                                     </li>
@@ -59,8 +59,8 @@
                             <li class="has-droupdown"><a href="#">{{__('site.About College')}}</a>
                                 <ul class="submenu">
                                     <li><a href="">{{__('site.Welcome Speech')}}</a></li>
-                                    <li><a href="{{route('who_we_are')}}">{{__('site.Who We Are')}}</a></li>
-                                    <li><a href="course-three.html">{{__('site.Vision and mission')}}</a></li>
+                                    <li><a href="{{route('who-we-are')}}">{{__('site.Who We Are')}}</a></li>
+                                    <li><a href="{{route('article1')}}">{{__('site.Vision and mission')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
                                     <li><a href="course-five.html">{{__('site.College Council')}}</a></li>
                                     <li><a href="course-details.html">{{__('site.Our Partners')}}</a></li>
@@ -176,7 +176,7 @@
             {{-- {{__('site.About College')}}</a>
                                 <ul class="submenu">
                                     <li><a href="">{{__('site.Welcome Speech')}}</a></li>
-                                    <li><a href="{{route('who_we_are')}}">{{__('site.Who We Are')}}</a></li>
+                                    <li><a href="{{route('who-we-are')}}">{{__('site.Who We Are')}}</a></li>
                                     <li><a href="course-three.html">{{__('site.Vision and mission')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
                                     <li><a href="course-five.html">{{__('site.College Council')}}</a></li>
