@@ -1,22 +1,23 @@
 <main>
 
-    @if(count($settings)!=0)
+    @if(count($news)!=0)
         <div class="table-responsive">
             <!--begin::Table-->
             <table class="table align-middle gs-0 gy-5">
                 <!--begin::Table head-->
-                <thead style="border: none">
+                <thead>
                 <tr>
                     <th class="p-0 w-20px" style="border: none">#</th>
-                    <th class="p-0 w-50px" style="border: none">Setting Name</th>
-                    <th class="p-0 w-50px" style="border: none">Setting Value</th>
+                    <th class="p-0 w-50px" style="border: none">News Title</th>
+                    <th class="p-0 w-50px" style="border: none">News Status</th>
+                    <th class="p-0 w-50px" style="border: none">Created At</th>
                     <th class="p-0 w-50px" style="border: none">Actions</th>
                 </tr>
                 </thead>
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>
-                @foreach($settings as $setting)
+                @foreach($news as $new)
                     <tr>
                         <th style="text-align: center">
                             <div class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
@@ -26,32 +27,46 @@
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$setting->name}}
+                                {{$new->title}}
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$setting->url}}
+                                {{$new->status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start"
+                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                {{$new->created_at}}
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="display: flex;gap: 5px">
                                 <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
                                     <button
-                                        wire:click="edit({{ $setting->id }})"
+                                        wire:click="viewNews({{ $new->id }})"
                                         class="btn btn-sm btn-primary"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#edit_setting"
+                                        data-bs-target="#view_news"
+                                        role="button"><i style="padding: 0" class="bi bi-eye-fill"></i></button>
+                                </div>
+                                <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
+                                    <button
+                                        wire:click="edit({{ $new->id }})"
+                                        class="btn btn-sm btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#edit_news"
                                         role="button"><i class="bi bi-pencil-square"
                                                          style="padding: 0"></i></button>
                                 </div>
                                 <div style="text-align: start" class="text-dark fw-bolder  mb-1 fs-6">
                                     <button
-                                        wire:click="delete({{ $setting->id }})"
+                                        wire:click="delete({{ $new->id }})"
                                         class="btn btn-sm btn-danger"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#delete_setting"
+                                        data-bs-target="#delete_news"
                                         role="button"><i
                                             style="padding: 0" class="bi bi-trash-fill"></i></button>
                                 </div>
@@ -64,13 +79,13 @@
             </table>
             <!--end::Table-->
 
-
         </div>
     @else
-        <div>There is No Settings Yet!</div>
+        <div>There is No News Yet!</div>
     @endif
 
-    <div wire:ignore.self class="modal fade" id="create_setting" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal - Create Api Key-->
+    <div wire:ignore.self class="modal fade" id="create_news" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <!--begin::Modal content-->
@@ -78,7 +93,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_create_api_key_header">
                     <!--begin::Modal title-->
-                    <h2>Create Setting</h2>
+                    <h2>Create News</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()" data-bs-dismiss="modal">
@@ -108,46 +123,39 @@
                              data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
                              data-kt-scroll-dependencies="#kt_modal_create_api_key_header"
                              data-kt-scroll-wrappers="#kt_modal_create_api_key_scroll" data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Setting Name</label>
+                                <label class="required fs-5 fw-bold mb-2">News Title</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" wire:model="name" class="form-control form-control-solid"
-                                       placeholder="Your Setting Name" name="name"/>
-                                @error('name')
+                                <input type="text" class="form-control form-control-solid"
+                                       placeholder="Your News Title" wire:model="title"/>
+                                <!--end::Input-->
+                                @error('title')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
-                                <!--end::Input-->
                             </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Setting Value</label>
+                                <label class="required fs-5 fw-bold mb-2">News Content</label>
                                 <!--end::Label-->
-                                <!--begin::Select-->
-{{--                                {{$setting_value_select}}--}}
-                                <select wire:model="setting_value_select" data-hide-search="true"
-                                        data-placeholder="Select Type of Setting Value ..."
-                                        class="form-select form-select-solid mb-2">
-                                    <option value="" selected>Select Type of Setting Value ...</option>
-                                    <option value="url">Link Address</option>
-                                    <option value="email">Email Address</option>
-                                    <option value="phone">Phone Number</option>
-                                    <option value="another">Another</option>
-                                </select>
-                                <!--end::Select-->
                                 <!--begin::Input-->
-                                <input type="{{$setting_value[$setting_value_select]['input_type']}}" wire:model="value" class="form-control form-control-solid"
-                                       placeholder="Your Setting Value" name="value"/>
-                                @error('value')
+                                <textarea class="form-control form-control-solid" wire:model="content" rows="5"
+                                          placeholder="Your News Content"></textarea>
+                                <!--end::Input-->
+                                @error('content')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
-                                <!--end::Input-->
                             </div>
+                            <!--end::Input group-->
                         </div>
                         <!--end::Scroll-->
                     </div>
                     <!--end::Modal body-->
+                    {{--                <button wire:target="storePostData" >Subm</button>--}}
                     <!--begin::Modal footer-->
                     <div class="modal-footer flex-center">
                         <!--begin::Button-->
@@ -172,13 +180,127 @@
         <!--end::Modal dialog-->
     </div>
     <!--end::Modal - Create Api Key-->
+    <!--begin::Modal - Create Api Key-->
+    <div wire:ignore.self class="modal fade" id="view_news" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_create_api_key_header">
+                    <!--begin::Modal title-->
+                    <h2>News |  <span
+                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_news_title}}</span>
+                    </h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" model:click="closeView()"
+                         data-bs-dismiss="modal">
+
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)" fill="black"/>
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)"
+                                          fill="black"/>
+                                </svg>
+                            </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <div class="table-responsive p-10">
+                    <!--begin::Table-->
+                    <table class="table align-middle gs-0 gy-5">
+                        <!--begin::Table head-->
+                        <thead style="border: none">
+                        <tr>
+                            <th class="p-0 w-50px" style="border: none"></th>
+                            <th class="p-0 w-50px" style="border: none"></th>
+                        </tr>
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Title:
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_news_title}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Content:
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_news_content}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Status:
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_news_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Created At:
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_news_created}}
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
 
 
-    <!--begin::Modal - Edit product-->
+                </div>
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - Create Api Key-->
+    <!--begin::Modal - Edit news-->
     <div
         wire:ignore.self
         class="modal fade"
-        id="edit_setting" tabindex="-1"
+        id="edit_news" tabindex="-1"
         aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -187,7 +309,9 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2>Edit Setting | {{$edit_setting_name}}</h2>
+                    <h2>Edit News | <span
+                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$edit_news_title}}</span>
+                    </h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div
@@ -229,39 +353,44 @@
                              data-kt-scroll-offset="300px">
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Setting Name</label>
+                                <label class="required fs-5 fw-bold mb-2">News Title</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" wire:model="name" class="form-control form-control-solid"
-                                       placeholder="Your Setting Name" name="name"/>
-                                @error('name')
+                                <input type="text" wire:model="title" class="form-control form-control-solid"
+                                       placeholder="Your News Title" name="title"/>
+                                @error('title')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                                 <!--end::Input-->
                             </div>
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Setting Value</label>
+                                <label class="required fs-5 fw-bold mb-2">News Content</label>
                                 <!--end::Label-->
-                                <select wire:model="setting_value_select" data-hide-search="true"
-                                        data-placeholder="Select Type of Setting Value ..."
-                                        class="form-select form-select-solid mb-2">
-                                    <option value="" selected>Select Type of Setting Value ...</option>
-                                    <option value="url">Link Address</option>
-                                    <option value="email">Email Address</option>
-                                    <option value="phone">Phone Number</option>
-                                    <option value="another">Another</option>
-                                </select>
-                                <!--begin::Input-->
-                                <input type="{{$setting_value[$setting_value_select]['input_type']}}" wire:model="value" class="form-control form-control-solid"
-                                       placeholder="Your Setting value" name="value"/>
-                                @error('value')
+                                <textarea class="form-control form-control-solid" wire:model="content" rows="5"
+                                          placeholder="Your News Content"></textarea>
+                                @error('content')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                                 <!--end::Input-->
                             </div>
                             <!--begin::Input group-->
-
+                            <div class="d-flex flex-column mb-10 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-5 fw-bold mb-2">Status</label>
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select name="status" data-hide-search="true" wire:model="status"
+                                        data-placeholder="Select a Status..." class="form-select form-select-solid">
+                                    <option disabled>Select a Status...</option>
+                                    <option value="{{\App\Models\Article::STATUS_ACTIVE}}">Active</option>
+                                    <option value="{{\App\Models\Article::STATUS_INACTIVE}}">Inactive</option>
+                                </select>
+                                <!--end::Select-->
+                                @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!--end::Input group-->
                         </div>
                         <!--end::Scroll-->
@@ -289,12 +418,8 @@
         <!--end::Form-->
         <!--end::Modal body-->
     </div>
-    <!--end::Modal - Edit product-->
-
-    <!--begin::Modal - Create Api Key-->
-
-    <!--begin::Modal - Delete Api Key-->
-    <div wire:ignore.self class="modal fade" id="delete_setting" tabindex="-1" aria-hidden="true">
+    <!--end::Modal - Edit news-->
+    <div wire:ignore.self class="modal fade" id="delete_news" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <!--begin::Modal content-->
@@ -322,7 +447,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_create_api_key_header">
                     <!--begin::Modal title-->
-                    <h2>Are you sure you want delete {{$name}} setting?</h2>
+                    <h2>Are you sure you want delete <span style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$title}}</span> news?</h2>
                     <form wire:submit.prevent="destroy" id="kt_modal_edit_card" class="form">
                         <!--begin::Modal body--> <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
@@ -347,21 +472,15 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-    <!--end::Modal - Create Api Key-->
+
 </main>
 
 @push('scripts_livewire')
     <script>
         window.addEventListener(`close-modal`, event => {
-            $('#create_setting').modal('hide');
-            $('#edit_setting').modal('hide');
-            $('#delete_setting').modal('hide');
+            $('#create_news').modal('hide');
+            $('#edit_news').modal('hide');
+            $('#delete_news').modal('hide');
         });
-        // window.livewire.on('close-modal', function() {
-        //     $('#create_color').modal('hide');
-        //     $('#edit_color').modal('hide');
-        //     $('#delete_color').modal('hide');
-        // });
     </script>
 @endpush
-

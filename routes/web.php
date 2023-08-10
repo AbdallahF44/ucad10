@@ -20,6 +20,10 @@ Route::get('/dashboard', function () {
 })->name('home');
 
 Route::get('settings',\App\Http\Livewire\Settings\Index::class)->name('settings');
+Route::get('contents',\App\Http\Livewire\Contents\Index::class)->name('contents');
+Route::get('articles',\App\Http\Livewire\Articles\Index::class)->name('articles');
+Route::get('advertisements',\App\Http\Livewire\Advertisements\Index::class)->name('advertisements');
+Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
 
 Route::get('/', function () {
     return view('site.index');

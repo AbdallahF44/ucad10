@@ -2,77 +2,103 @@
 
 namespace App\Http\Livewire\Settings;
 
-use App\Http\Livewire\Settings;
 use App\Models\Setting;
 use Livewire\Component;
 
 class Index extends Component
 {
     public $name;
-    public $url;
+    public $value;
     public $setting_id;
     public $edit_setting_name;
-
-    protected $rules = [
-        'name' => 'required|min:6',
-        'url' => 'required',
+    public $setting_value = [
+        'url' => [
+            'input_type' => 'text',
+            'rule_type' => 'url',
+        ], 'email' => [
+            'input_type' => 'email',
+            'rule_type' => 'email',
+        ], 'phone' => [
+            'input_type' => 'number',
+            'rule_type' => 'numeric|min:10',
+        ], 'another' => [
+            'input_type' => 'text',
+            'rule_type' => '',
+        ], '' => [
+            'input_type' => 'text',
+            'rule_type' => '',
+        ],
     ];
+    public $setting_value_select;
 
-    public function updated($property)
+
+    private function myValidate()
     {
-        $this->validateOnly($property);
+        $rule_from_arr = $this->setting_value[$this->setting_value_select]['rule_type'];
+        $this->validate([
+            'name' => 'required|min:6',
+            'value' => "required|$rule_from_arr",
+        ]);
+    }
+
+    public function updated()
+    {
+        $this->myValidate();
+    }
+
+    public function resetValues()
+    {
+        $this->reset();
     }
 
     public function store()
     {
-        $this->validate();
+        $this->myValidate();
         Setting::create([
             'name' => $this->name,
-            'url' => $this->url,
+            'url' => $this->value,
         ]);
         $this->reset();
-        toastr()->success("Setting Successfully Added.");
+        toastr()->success("Setting Added Successfully.");
         $this->dispatchBrowserEvent('close-modal');
-//        return redirect()->to('/comments');
     }
+
     public function edit($id)
     {
         $setting = Setting::findorFail($id);
         $this->setting_id = $id;
         $this->edit_setting_name = $setting->name;
         $this->name = $setting->name;
-        $this->url = $setting->url;
+        $this->value = $setting->url;
     }
 
     public function update()
     {
-        $this->validate();
+        $this->myValidate();
         $color = Setting::find($this->setting_id);
         $color->update([
             'name' => $this->name,
-            'url' => $this->url,
+            'url' => $this->value,
         ]);
-        toastr()->success('Setting successfully Updated.');
+        toastr()->success('Setting Updated Successfully.');
         $this->reset();
 
         $this->dispatchBrowserEvent('close-modal');
-//        return redirect()->to('/comments');
     }
     public function delete($id)
     {
         $setting = Setting::findorFail($id);
         $this->setting_id = $id;
         $this->name = $setting->name;
-        $this->url = $setting->url;
+        $this->value = $setting->url;
     }
 
     public function destroy()
     {
         Setting::destroy($this->setting_id);
         $this->reset();
-        toastr()->success('Setting successfully Deleted.');
+        toastr()->success('Setting Deleted Successfully.');
         $this->dispatchBrowserEvent('close-modal');
-//        return redirect()->to('/comments');
     }
     public function render()
     {

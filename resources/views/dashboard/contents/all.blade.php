@@ -1,14 +1,11 @@
 @extends('dashboard.layouts.master')
 
 @section('content_title')
-    All Settings
+    Contents
 @endsection
 
 @section('btn_toolbar')
-        <button href="#" data-bs-toggle="modal" type="submit"
-           data-bs-target="#create_setting"
-           class="me-5 btn btn-sm btn-primary"
-           id="kt_toolbar_primary_button">Create</button>
+
 
 @endsection
 
@@ -35,13 +32,13 @@
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
         <li class="breadcrumb-item text-muted">
-            All Settings
+            Contents
         </li>
     </ul>
     <!--end::Breadcrumb-->
 @endsection
 
 @section('content')
-    @livewire('settings.index')
+    @livewire('contents.index')
     @stack('scripts_livewire')
 @endsection

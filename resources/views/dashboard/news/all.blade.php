@@ -1,12 +1,12 @@
 @extends('dashboard.layouts.master')
 
 @section('content_title')
-    All Settings
+    All News
 @endsection
 
 @section('btn_toolbar')
         <button href="#" data-bs-toggle="modal" type="submit"
-           data-bs-target="#create_setting"
+           data-bs-target="#create_news"
            class="me-5 btn btn-sm btn-primary"
            id="kt_toolbar_primary_button">Create</button>
 
@@ -22,7 +22,6 @@
     @livewireScripts
     <script src="{{ asset('livewire/livewire.js') }}" defer></script>
 
-
     {{-- Bootstrap Scripts --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -35,13 +34,13 @@
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
         <!--begin::Item-->
         <li class="breadcrumb-item text-muted">
-            All Settings
+            All News
         </li>
     </ul>
     <!--end::Breadcrumb-->
 @endsection
 
 @section('content')
-    @livewire('settings.index')
+    @livewire('news.index')
     @stack('scripts_livewire')
 @endsection
