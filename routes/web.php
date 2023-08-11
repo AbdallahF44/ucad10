@@ -38,6 +38,8 @@ Route::get('/', function () {
 // })->name('inner');
 Route::get('/who_we_are', [LocalizedContentController::class, 'who_we_are']
 )->name('who_we_are');
+Route::get('/التسجيل للدورات', [LocalizedContentController::class, 'who_we_are']
+)->name('التسجيل للدورات');
 
 
 Route::get('lang/{lang}', function ($lang) {

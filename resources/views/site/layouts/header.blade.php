@@ -24,7 +24,14 @@
                                         </ul>
                                     </li>
 
-                                    <li><a href="#">{{__('site.continuous education')}}</a></li>
+                                    <li class="has-droupdown"><a class="mymenu continuous-edu" href="#">{{__('site.continuous education')}}</a>
+                                        <ul class="submenu">
+                                            <li><a href="">{{__('site.about continuous education')}}</a></li>
+                                            @if(app()->getLocale() == 'ar')
+                                            <li><a href="{{route('التسجيل للدورات')}}">التسجيل للدورات</a></li>
+                                            @endif
+                                        </ul>
+                                    </li>
 
 
 

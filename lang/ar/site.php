@@ -26,6 +26,7 @@ return [
     'continuous education'=>'التعليم المستمر',
     'Lecturers'=>'المحاضرين',
     'Students'=>'الطلاب',
+    'about continuous education'=>'حول التعليم المستمر',
     
 
 

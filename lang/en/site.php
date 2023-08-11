@@ -34,7 +34,7 @@ return [
     'New Students'=>'New Students',
     'Frequently Asked Questions'=>'Frequently Asked Questions',
     'Students’ Guidelines'=>'Students’ Guidelines',
-
+    'about continuous education'=>'about continuous education',
 
 
     'password' => 'The provided password is incorrect.',
