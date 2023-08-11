@@ -80,6 +80,7 @@ class Index extends Component
     }
     public function edit($id)
     {
+
         $advertisement = Article::findorFail($id);
         $this->advertisement_id = $id;
         $this->edit_advertisement_title = $advertisement->title;
