@@ -42,8 +42,8 @@ Route::get('/who_we_are', [ArticleController::class, 'who_we_are']
 )->name('who-we-are');
 Route::get('/article1', [ArticleController::class, 'myarticle']
 )->name('article1');
-Route::get('/articles', [ArticleController::class, 'articles']
-)->name('articles');
+//Route::get('/articles', [ArticleController::class, 'articles']
+//)->name('articles');
 Route::get('/', [ArticleController::class, 'index']
 )->name('home');
 // Route::view('/article-details', 'site.layouts.inners.article-details')

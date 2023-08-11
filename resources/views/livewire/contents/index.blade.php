@@ -28,7 +28,11 @@
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$content->title}}
+                                @if(lang()=='en')
+                                    {!!isset($content->getTranslations('title', ['en'])['en']) ? $content->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
+                                @else
+                                    {{$content->title}}
+                                @endif
                             </div>
                         </td>
                         <td style="text-align: center">
@@ -47,7 +51,7 @@
                                 @elseif($content->type==\App\Models\Article::TYPE_NEWS)
                                     News
                                 @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
-                                UNCATEGORIZED
+                                    UNCATEGORIZED
                                 @endif
                             </div>
                         </td>
@@ -75,7 +79,7 @@
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
-{{--            {{$contents->links()}}--}}
+            {{--            {{$contents->links()}}--}}
 
 
         </div>
@@ -133,11 +137,11 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Title:
+                                    Title (AR):
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
+                                <div style="text-align: right;direction: rtl"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
                                     {{$view_content_title}}
                                 </div>
@@ -147,13 +151,41 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Content:
+                                    Title (EN):
                                 </div>
                             </td>
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_content_title_en}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Content (AR):
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: right;direction: rtl"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
                                     {{$view_content_content}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Content (EN):
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_content_content_en}}
                                 </div>
                             </td>
                         </tr>
@@ -166,8 +198,9 @@
                             </td>
                             <td style="text-align: center">
                                 <div style="text-align: start"
-                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_content_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6"><span
+                                        style="color: {{$view_content_status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">
+                                    {{$view_content_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}</span>
                                 </div>
                             </td>
                         </tr>
@@ -187,7 +220,7 @@
                                         Advertisement
                                     @elseif($view_content_type==\App\Models\Article::TYPE_NEWS)
                                         News
-                                     @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
+                                    @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
                                         UNCATEGORIZED
                                     @endif
                                 </div>
