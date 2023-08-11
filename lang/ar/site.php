@@ -26,6 +26,10 @@ return [
     'continuous education'=>'التعليم المستمر',
     'Lecturers'=>'المحاضرين',
     'Students'=>'الطلاب',
+    'Articles'=>'المقالات',
+    'Latest Atricles'=>'آخر المقالات',
+    'View All'=>'عرض كل المقالات',
+    // 'The Latest Articles.'=>'آخر المقالات',
     
 
 

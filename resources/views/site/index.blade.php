@@ -62,7 +62,8 @@
     <!--=       Event Area Start      		=-->
     <!--=====================================-->
     <!-- Start Event Area  -->
-    @include('site.layouts.event')
+    {{-- @include('site.layouts.event') --}}
+    @include('site.layouts.articles')
     <!-- End Event Area  -->
     <!--=====================================-->
     <!--=       Brand Area Start      		=-->

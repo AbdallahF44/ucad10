@@ -30,8 +30,8 @@ class Setting extends Model
     protected function Name(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => ucfirst($value),
-            set: fn(string $value) => ucfirst($value),
+            get: fn(string $url) => ucfirst($url),
+            set: fn(string $url) => ucfirst($url),
         );
     }
 

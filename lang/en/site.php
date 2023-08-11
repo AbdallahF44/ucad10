@@ -35,6 +35,11 @@ return [
     'Frequently Asked Questions'=>'Frequently Asked Questions',
     'Students’ Guidelines'=>'Students’ Guidelines',
 
+    'Articles'=>'Articles',
+    'Latest Atricles' =>'Latest Atricles',
+    'View All'=>'View All',
+    // 'The Latest Articles.'=>'The Latest Articles.',
+
 
 
     'password' => 'The provided password is incorrect.',
