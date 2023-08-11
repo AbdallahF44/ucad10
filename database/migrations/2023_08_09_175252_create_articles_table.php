@@ -11,21 +11,22 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
+            $table->id(); 
+            $table->json('title');
+            $table->json('content');
             $table->tinyInteger('status')->default(\App\Models\Article::STATUS_ACTIVE);
             $table->tinyInteger('type');
+            $table->softDeletes();
             $table->timestamps();
         });
-        for ($i = 0; $i < 100; $i++) {
-            \App\Models\Article::create([
-                'title' => fake()->text(30),
-                'content' => fake()->text(1000),
-                'status' => rand(1, 2),
-                'type' => rand(1, 3),
-            ]);
-        }
+        // for ($i = 0; $i < 100; $i++) {
+        //     \App\Models\Article::create([
+        //         'title' => fake()->text(30),
+        //         'content' => fake()->text(1000),
+        //         'status' => rand(1, 2),
+        //         'type' => rand(1, 3),
+        //     ]);
+        // }
     }
 
     /**

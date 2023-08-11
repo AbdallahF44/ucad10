@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LocalizedContentController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,9 @@ Route::get('articles',\App\Http\Livewire\Articles\Index::class)->name('articles'
 Route::get('advertisements',\App\Http\Livewire\Advertisements\Index::class)->name('advertisements');
 Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
 
-Route::get('/', function () {
-    return view('site.index');
-})->name('home');
+// Route::get('/', function () {
+//     return view('site.index');
+// })->name('home');
 
 // Route::get('/frontSite', function () {
 //     return view('site.index');
@@ -36,10 +37,21 @@ Route::get('/', function () {
 // Route::get('/inner', function () {
 //     return view('site.inner');
 // })->name('inner');
-Route::get('/who_we_are', [LocalizedContentController::class, 'who_we_are']
-)->name('who_we_are');
-Route::get('/التسجيل للدورات', [LocalizedContentController::class, 'who_we_are']
-)->name('التسجيل للدورات');
+
+Route::get('/who_we_are', [ArticleController::class, 'who_we_are']
+)->name('who-we-are');
+Route::get('/article1', [ArticleController::class, 'myarticle']
+)->name('article1');
+Route::get('/articles', [ArticleController::class, 'articles']
+)->name('articles');
+Route::get('/', [ArticleController::class, 'index']
+)->name('home');
+// Route::view('/article-details', 'site.layouts.inners.article-details')
+// ->name('article-details');
+Route::get('/article-details/{article}', [ArticleController::class, 'showDetails'])->name('article-details');
+Route::get('/all-articles', [ArticleController::class, 'allArticles'])->name('all-articles');
+
+
 
 
 Route::get('lang/{lang}', function ($lang) {

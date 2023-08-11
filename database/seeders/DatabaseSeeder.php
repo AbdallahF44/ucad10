@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-
-use App\Models\Content;
-
+use App\Models\Article;
 
 use Illuminate\Database\Seeder;
 
@@ -26,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SettingSeeder::class,
-            LocalizedContentSeeder::class,
+            ArticleSeeder::class,
 
         ]);
     }
