@@ -25125,6 +25125,10 @@ body .tpd-size-medium .tpd-content {
     font-size: 6px;
     font-weight: 400;
 }
+.mainmenu-nav .mainmenu li.has-droupdown > .continuous-edu::after {   
+    LEFT: 140px;   
+}
+
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .mainmenu-nav .mainmenu li.has-droupdown > a::after {

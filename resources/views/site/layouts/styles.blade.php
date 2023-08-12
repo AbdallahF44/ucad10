@@ -15,7 +15,12 @@
 <!-- Site Stylesheet -->
 <link rel="stylesheet" href="{{ asset('site/assets/css/app.css') }}">
 
+{{-- my  styles --}}
+<link rel="stylesheet" href="{{ asset('site/assets/css/mystyles.css')}}">
+
+
+
 @if (lang() == 'ar')
-    <link rel="stylesheet" href="{{ asset('site/assets/css/ar.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/assets/css/ar.css')}}">
 @endif
 @stack('css')

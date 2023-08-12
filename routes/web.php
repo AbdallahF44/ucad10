@@ -31,14 +31,17 @@ Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
 // })->name('home');
 
 // Route::get('/frontSite', function () {
-//     return view('site.index');
-// });
-
-// Route::get('/inner', function () {
-//     return view('site.inner');
-// })->name('inner');
-Route::get('/who_we_are', [ArticleController::class, 'who_we_are']
-)->name('who-we-are');
+    //     return view('site.index');
+    // });
+    
+    // Route::get('/inner', function () {
+        //     return view('site.inner');
+        // })->name('inner');
+        
+        Route::get('/who_we_are', [ArticleController::class, 'who_we_are']
+        )->name('who-we-are');
+        Route::get('/continuous-learning', [ArticleController::class, 'continuous_learning']
+        )->name('continuous-learning');
 Route::get('/article1', [ArticleController::class, 'myarticle']
 )->name('article1');
 //Route::get('/articles', [ArticleController::class, 'articles']
@@ -49,6 +52,12 @@ Route::get('/', [ArticleController::class, 'index']
 // ->name('article-details');
 Route::get('/article-details/{article}', [ArticleController::class, 'showDetails'])->name('article-details');
 Route::get('/all-articles', [ArticleController::class, 'allArticles'])->name('all-articles');
+
+Route::get('/جميع الدورات', [ArticleController::class, 'allCourses']
+)->name('جميع الدورات');
+
+Route::get('/workshop-details/{workshop}', [ArticleController::class, 'showWorkshopDetails'])->name('workshop-details');
+Route::get('/workshop-form/{workshop}', [ArticleController::class, 'WorkshopForm'])->name('workshop-form');
 
 
 
