@@ -26,6 +26,7 @@
                 {{--                @dd($articles)--}}
                 <div class="row g-5">
                     @foreach ($articles as $article )
+
                         @if(lang()=='en' && !isset($article->getTranslations('title', ['en'])['en']))
                         @else
                             <!-- Start Event Grid  -->
@@ -59,6 +60,7 @@
                                                     More <i class="icon-4"></i></a>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
