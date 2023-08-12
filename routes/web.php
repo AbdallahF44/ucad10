@@ -44,8 +44,8 @@ Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
         )->name('continuous-learning');
 Route::get('/article1', [ArticleController::class, 'myarticle']
 )->name('article1');
-Route::get('/articles', [ArticleController::class, 'articles']
-)->name('articles');
+//Route::get('/articles', [ArticleController::class, 'articles']
+//)->name('articles');
 Route::get('/', [ArticleController::class, 'index']
 )->name('home');
 // Route::view('/article-details', 'site.layouts.inners.article-details')

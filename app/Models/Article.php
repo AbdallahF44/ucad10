@@ -25,11 +25,11 @@ class Article extends Model
     protected $fillable = ['title', 'content', 'status', 'type'];
     public $translatable = ['title', 'content'];
 
-    protected function Title(): Attribute
-    {
-        return Attribute::make(
-            get: fn(string $value) => ucfirst($value),
-            set: fn(string $value) => ucfirst($value),
-        );
-    }
+//    protected function Title(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn(string $value) => $value?ucfirst($value):'',
+//            set: fn(string $value) => $value?ucfirst($value):'',
+//        );
+//    }
 }

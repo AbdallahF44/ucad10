@@ -27,7 +27,11 @@
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$article->title}}
+                                @if(lang()=='en')
+                                    {!!isset($article->getTranslations('title', ['en'])['en']) ? $article->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
+                                @else
+                                    {{$article->title}}
+                                @endif
                             </div>
                         </td>
                         <td style="text-align: center">
@@ -96,7 +100,8 @@
                     <h2>Create Article</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()" data-bs-dismiss="modal">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()"
+                         data-bs-dismiss="modal">
 
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
@@ -126,11 +131,12 @@
                             <!--begin::Input group-->
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Article Title</label>
+                                <label class="required fs-5 fw-bold mb-2">Article Title (AR)</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <input type="text" class="form-control form-control-solid"
-                                       placeholder="Your Article Title" wire:model="title"/>
+                                       style="text-align: right;direction: rtl"
+                                       placeholder="عنوان المقال" wire:model="title"/>
                                 <!--end::Input-->
                                 @error('title')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
@@ -140,13 +146,42 @@
                             <!--begin::Input group-->
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Article Content</label>
+                                <label class="fs-5 fw-bold mb-2">Article Title (EN)</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-solid"
+                                       placeholder="Your Article Title" wire:model="title_en"/>
+                                <!--end::Input-->
+                                @error('title_en')
+                                <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-5 fw-bold mb-2">Article Content (AR)</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <textarea class="form-control form-control-solid" wire:model="content" rows="5"
-                                          placeholder="Your Article Content"></textarea>
+                                          style="text-align: right;direction: rtl"
+                                          placeholder="محتوى المقال"></textarea>
                                 <!--end::Input-->
                                 @error('content')
+                                <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="fs-5 fw-bold mb-2">Article Content (EN)</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <textarea class="form-control form-control-solid" wire:model="content_en" rows="5"
+                                          placeholder="Your Article Content"></textarea>
+                                <!--end::Input-->
+                                @error('content_en')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -179,26 +214,27 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-    <!--end::Modal - Create Api Key-->
-    <!--begin::Modal - Create Api Key-->
-    <div wire:ignore.self class="modal fade" id="view_article" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header" id="kt_modal_create_api_key_header">
-                    <!--begin::Modal title-->
-                    <h2>Article |  <span
-                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_article_title}}</span>
-                    </h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" model:click="closeView()"
-                         data-bs-dismiss="modal">
+        <!--end::Modal - Create Api Key-->
+        <!--begin::Modal - Create Api Key-->
+        <div wire:ignore.self class="modal fade" id="view_article" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_create_api_key_header">
+                        <!--begin::Modal title-->
+                        {{--                    @dd($view_article_title)--}}
+                        <h2>Article | <span
+                                style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_article_title}}</span>
+                        </h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" model:click="closeView()"
+                             data-bs-dismiss="modal">
 
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none">
                                     <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
@@ -208,7 +244,7 @@
                                           fill="black"/>
                                 </svg>
                             </span>
-                        <!--end::Svg Icon-->
+                            <!--end::Svg Icon-->
                     </div>
                     <!--end::Close-->
                 </div>
@@ -230,12 +266,12 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Title:
+                                    Title (AR):
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
-                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                <div style="text-align: right;direction: rtl"
+                                     class="text-dark rtl fw-bolder text-hover-primary mb-1 fs-6">
                                     {{$view_article_title}}
                                 </div>
                             </td>
@@ -244,13 +280,41 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Content:
+                                    Title (EN):
                                 </div>
                             </td>
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_article_title_en}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Content (AR):
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: right;direction: rtl"
+                                     class="text-dark rtl fw-bolder text-hover-primary mb-1 fs-6">
                                     {{$view_article_content}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Content (EN):
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_article_content_en}}
                                 </div>
                             </td>
                         </tr>
@@ -264,7 +328,9 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_article_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}
+                                     <span
+                                         style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">
+                                    {{$view_article_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}</span>
                                 </div>
                             </td>
                         </tr>
@@ -353,11 +419,12 @@
                              data-kt-scroll-offset="300px">
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Article Title</label>
+                                <label class="required fs-5 fw-bold mb-2">Article Title (AR)</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <input type="text" wire:model="title" class="form-control form-control-solid"
-                                       placeholder="Your Article Title" name="title"/>
+                                       style="text-align: right;direction: rtl"
+                                       placeholder="عنوان المقال" name="title"/>
                                 @error('title')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
@@ -365,11 +432,35 @@
                             </div>
                             <div class="mb-5 fv-row">
                                 <!--begin::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Article Content</label>
+                                <label class=" fs-5 fw-bold mb-2">Article Title (EN)</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" wire:model="title_en" class="form-control form-control-solid"
+                                       placeholder="Your Article Title" name="title_en"/>
+                                @error('title_en')
+                                <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                                <!--end::Input-->
+                            </div>
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-5 fw-bold mb-2">Article Content (AR)</label>
                                 <!--end::Label-->
                                 <textarea class="form-control form-control-solid" wire:model="content" rows="5"
-                                          placeholder="Your Article Content"></textarea>
+                                          style="text-align: right;direction: rtl"
+                                          placeholder="محتوى المقال"></textarea>
                                 @error('content')
+                                <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                                <!--end::Input-->
+                            </div>
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class=" fs-5 fw-bold mb-2">Article Content (EN)</label>
+                                <!--end::Label-->
+                                <textarea class="form-control form-control-solid" wire:model="content_en" rows="5"
+                                          placeholder="Your Article Content"></textarea>
+                                @error('content_en')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                                 <!--end::Input-->
@@ -383,8 +474,8 @@
                                 <select name="status" data-hide-search="true" wire:model="status"
                                         data-placeholder="Select a Status..." class="form-select form-select-solid">
                                     <option disabled>Select a Status...</option>
-                                    <option value="{{\App\Models\Article::STATUS_ACTIVE}}">Active</option>
-                                    <option value="{{\App\Models\Article::STATUS_INACTIVE}}">Inactive</option>
+                                    <option value="{{\App\Models\Article::STATUS_ACTIVE}}" style="background-color: #00ff00">Active</option>
+                                    <option value="{{\App\Models\Article::STATUS_INACTIVE}}" style="background-color: #ff0000">Inactive</option>
                                 </select>
                                 <!--end::Select-->
                                 @error('status')
@@ -418,7 +509,7 @@
         <!--end::Form-->
         <!--end::Modal body-->
     </div>
-    <!--end::Modal - Edit article-->
+        <!--end::Modal - Edit article-->
         <div wire:ignore.self class="modal fade" id="delete_article" tabindex="-1" aria-hidden="true">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -427,7 +518,8 @@
 
                     <div style="text-align: right">
                         <!--begin::Close-->
-                        <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()" data-bs-dismiss="modal">
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()"
+                             data-bs-dismiss="modal">
 
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                             <span class="svg-icon svg-icon-1">
@@ -447,12 +539,15 @@
                     <!--begin::Modal header-->
                     <div class="modal-header" id="kt_modal_create_api_key_header">
                         <!--begin::Modal title-->
-                        <h2>Are you sure you want delete <span style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$title}}</span> article?</h2>
+                        <h2>Are you sure you want delete <span
+                                style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$title}}</span>
+                            article?</h2>
                         <form wire:submit.prevent="destroy" id="kt_modal_edit_card" class="form">
                             <!--begin::Modal body--> <!--begin::Modal footer-->
                             <div class="modal-footer flex-center">
                                 <!--begin::Button-->
-                                <button type="submit" wire:target="destroy" :disabled="$disabled" class="btn btn-danger">
+                                <button type="submit" wire:target="destroy" :disabled="$disabled"
+                                        class="btn btn-danger">
                                     <span class="indicator-label">Yes</span>
                                     <span class="indicator-progress">Please wait...
                                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
