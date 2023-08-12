@@ -1,21 +1,21 @@
 @extends('site.layouts.app')
 
 @section('title')
-    {{ __('site.Articles') }}
+الإعلانات
 @endsection
 
 
 @section('content_title')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ getSiteName() }}</a></li>
     <li class="breadcrumb-item active" aria-current="page"> <a
-            href="{{ route('article-details', ['article' => $article]) }}">{{ __('site.Articles') }}</a></li>
+            href="{{ route('announcement-details', ['announcement' => $announcement]) }}">الإعلانات</a></li>
 @endsection
 
 @section('content')
     @include('site.layouts.main-toolbar')
     <div class="container">
-        <h3>{{ $article->title }} </h3>
-        <p style="text-align: justify">{{ $article->content }}</p>
+        <h3>{{ $announcement->title }} </h3>
+        <p style="text-align: justify">{{ $announcement->content }}</p>
     </div>
 
 

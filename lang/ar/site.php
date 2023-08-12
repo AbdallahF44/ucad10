@@ -30,8 +30,11 @@ return [
 
     'Articles'=>'المقالات',
     'Latest Atricles'=>'آخر المقالات',
-    'View All'=>'عرض كل المقالات',
+    'View All'=>'عرض الكل',
     'Continuous Learning'=>'التعليم المستمر',
+
+    'News'=> 'الأخبار',
+    'Latest News'=> 'آخر الأخبار',
     
 
 

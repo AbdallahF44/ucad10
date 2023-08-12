@@ -35,8 +35,11 @@
 
 
 
-                                    <!-- <li class="header-btn"><a href="#" class="edu-btn btn-secondary btn-medium">Apply Now <i class="icon-4"></i></a></li> -->
-                                </ul>
+                                     {{-- <li class="header-btn"><a href="#" class="edu-btn btn-secondary btn-medium">Apply Now <i class="icon-4"></i></a></li>  --}}
+                                     @if(app()->getLocale() == 'ar')
+                                     <li class="header-btn"><a href="{{route('اتصل بنا')}}" class="edu-btn btn-secondary btn-medium">اتصل بنا </a></li> 
+                                     @endif
+                                   </ul>
                             </div>
                         </ul>
                     </nav>
@@ -67,7 +70,7 @@
                                 <ul class="submenu">
                                     <li><a href="">{{__('site.Welcome Speech')}}</a></li>
                                     <li><a href="{{route('who-we-are')}}">{{__('site.Who We Are')}}</a></li>
-                                    <li><a href="{{route('article1')}}">{{__('site.Vision and mission')}}</a></li>
+                                    <li><a href="">{{__('site.Vision and mission')}}</a></li>
                                     <li><a href="course-four.html">{{__('site.General Objectives')}}</a></li>
                                     <li><a href="course-five.html">{{__('site.College Council')}}</a></li>
                                     <li><a href="course-details.html">{{__('site.Our Partners')}}</a></li>

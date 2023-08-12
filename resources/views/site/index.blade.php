@@ -23,10 +23,18 @@
     @include('site.layouts.categories')
     <!-- End Categories Area  -->
     <!--=====================================-->
+
+
     <!--=       About Area Start      		=-->
     <!--=====================================-->
     @include('site.layouts.about')
     <!--=====================================-->
+    {{-- News area --}}
+    @include('site.layouts.news')
+    @if (lang() == 'ar')
+    {{-- Announcements area --}}
+    @include('site.layouts.announcements')
+    @endif
     <!--=       CounterUp Area Start      	=-->
     <!--=====================================-->
     @include('site.layouts.counterUp')

@@ -43,6 +43,11 @@ return [
     'View All'=>'View All',
     'Continuous Learning'=>'Continuous Learning',
 
+    'News'=> 'News',
+    'Latest News'=> 'Latest News',
+
+
+
 
 
     'password' => 'The provided password is incorrect.',

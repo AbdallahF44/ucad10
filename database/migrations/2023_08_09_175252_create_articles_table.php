@@ -23,7 +23,7 @@ return new class extends Migration {
         //     \App\Models\Article::create([
         //         'title' => fake()->text(30),
         //         'content' => fake()->text(1000),
-        //         'status' => rand(1, 2),
+        //         'status' => rand(0, 1),
         //         'type' => rand(1, 3),
         //     ]);
         // }

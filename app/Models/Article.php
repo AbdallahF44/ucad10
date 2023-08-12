@@ -20,6 +20,7 @@ class Article extends Model
 
     use HasFactory;
     use HasTranslations;
+    use SoftDeletes;
 
 
     protected $fillable = ['title', 'content', 'status', 'type'];

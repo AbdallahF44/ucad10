@@ -21,3 +21,28 @@
         margin: 10px 0;
     }
 }
+
+/* contact-us */
+.custom-select option {
+    font-size: 1.5rem; 
+}
+.custom-select option:checked {
+    font-size: 1.3rem !important;
+    color: rgb(41, 40, 40);
+    font-style: normal;
+}
+
+.custom-textarea {
+    font-size: 1.5rem !important;
+    font-style: normal;
+}
+
+.custom-textarea textarea {
+    min-height: calc(1.5em + (0.75rem + 2px));
+    padding: 20px 25px;
+    resize: vertical;
+    overflow: auto;
+    vertical-align: top;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+}
