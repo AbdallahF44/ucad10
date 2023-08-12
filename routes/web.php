@@ -25,6 +25,7 @@ Route::get('contents',\App\Http\Livewire\Contents\Index::class)->name('contents'
 Route::get('articles',\App\Http\Livewire\Articles\Index::class)->name('articles');
 Route::get('advertisements',\App\Http\Livewire\Advertisements\Index::class)->name('advertisements');
 Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
+Route::get('workshops',\App\Http\Livewire\Workshops\Index::class)->name('workshops');
 
 // Route::get('/', function () {
 //     return view('site.index');
@@ -33,11 +34,11 @@ Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
 // Route::get('/frontSite', function () {
     //     return view('site.index');
     // });
-    
+
     // Route::get('/inner', function () {
         //     return view('site.inner');
         // })->name('inner');
-        
+
         Route::get('/who_we_are', [ArticleController::class, 'who_we_are']
         )->name('who-we-are');
         Route::get('/continuous-learning', [ArticleController::class, 'continuous_learning']

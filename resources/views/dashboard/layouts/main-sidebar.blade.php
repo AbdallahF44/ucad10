@@ -137,6 +137,16 @@
                             </a>
                         </div>
                     </div>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item menu-accordion">
+                            <a class="menu-link" href="{{route('workshops')}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Workshops</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--end::Menu-->
