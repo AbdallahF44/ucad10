@@ -9,16 +9,15 @@ class ContactUsController extends Controller
 {
 
     public function store(Request $request)
-    {
-  
+   {
         // Validate the form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'tel' => 'required|string|max:20',
-            'receiverType' => 'required|in:deanships,faculties',
-            'deanship' => 'required_if:receiverType,عمادات|string|max:255',
-            'faculty' => 'required_if:receiverType,كليات|string|max:255',
+            'receiverType' => 'required',
+            'deanship' => 'required_if:receiverType,عمادات',
+            'faculty' => 'required_if:receiverType,كليات',
             'subject' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
@@ -29,8 +28,7 @@ class ContactUsController extends Controller
         $contactUs->from_email = $validatedData['email'];
         $contactUs->from_phone = $validatedData['tel'];
         $contactUs->receiver_type = $validatedData['receiverType'];
-        $contactUs->to = $validatedData['deanship'] ?? null;
-        $contactUs->to = $validatedData['faculty'] ?? null;
+        $contactUs->to = $validatedData['deanship'] ?? $validatedData['faculty'] ?? null;
         $contactUs->subject = $validatedData['subject'];
         $contactUs->body = $validatedData['body'];
         $contactUs->status = ContactUs::STATUS_UNREAD;

@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="receiverType" id="emadatRadio" value="deanships">
+                    <input class="form-check-input" type="radio" name="receiverType" id="emadatRadio" value="عمادات">
                     <label class="form-check-label" for="emadatRadio">
                         عمادات
                     </label>
@@ -59,7 +59,7 @@
             </div>
             <div class="col">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="receiverType" id="kolyatRadio" value="faculties">
+                    <input class="form-check-input" type="radio" name="receiverType" id="kolyatRadio" value="كليات">
                     <label class="form-check-label" for="kolyatRadio">
                         كليات
                     </label>
@@ -71,7 +71,7 @@
     <div class="mb-3" id="emadatSelect">
         <label class="form-label">اختر عمادة:</label>
         <select name="deanship" class="custom-select" aria-label=".form-select example">
-            <option selected>اختر من القائمة</option>
+            <option selected value="">اختر من القائمة</option>
             <option value="عمادة الشؤون الإدارية">عمادة الشؤون الإدارية</option>
             <option value="عمادة الشؤون الأكاديمية">عمادة الشؤون الأكاديمية</option>
             <option value="عمادة القبول والتسجيل">عمادة القبول والتسجيل</option>
@@ -81,7 +81,7 @@
     <div class="mb-3" id="kolyatSelect" style="display: none;">
         <label class="form-label">اختر كلية:</label>
         <select  name="faculty" class="custom-select" aria-label=".form-select example">
-            <option selected> اختر من القائمة </option>
+            <option selected value=""> اختر من القائمة </option>
             <option value="كلية الحاسبات">كليةالحاسبات</option>
             <option value="كلية التربية">كليةالتربية</option>
             <option value="كلية الرياضة">كلية الرياضة </option>
