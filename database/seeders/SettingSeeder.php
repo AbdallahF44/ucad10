@@ -15,14 +15,18 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         DB::table('settings')->insert([
+            [
             'name'=> 'site_name',
             'url'=> 'Ability Development College',
-           ]);
-
-           DB::table('settings')->insert([
+           ],
+           [
             'name'=> 'اسم الموقع',
             'url'=> 'كلية تنمية القدرات',
-           ]);
+           ],
+          
+
+        ]);
+
 
 
         // $setting = new Setting();
@@ -39,6 +43,7 @@ class SettingSeeder extends Seeder
         // ]);
 
         // $setting->save();
+      
 
 
     }

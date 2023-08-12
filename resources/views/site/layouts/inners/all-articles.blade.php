@@ -42,7 +42,7 @@
                                         <span class="day">{{$article->created_at->format('d')}}</span>
                                         <span class="month">{{$article->created_at->format('M')}}</span>
                                     </div>
-                                    <h5 class="title"><a href="event-details.html">{{$article->title}}</a></h5>
+                                    <h5 class="title"><a href="#">{{$article->title}}</a></h5>
                                     <p> {{ Str::limit($article->content, 100) }}</p>
                                     {{-- <ul class="event-meta">
                                         <li><i class="icon-40"></i>Newyork City, USA</li>

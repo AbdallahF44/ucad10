@@ -41,8 +41,7 @@ return [
     'Articles'=>'Articles',
     'Latest Atricles' =>'Latest Atricles',
     'View All'=>'View All',
-    // 'The Latest Articles.'=>'The Latest Articles.',
-
+    'Continuous Learning'=>'Continuous Learning',
 
 
 

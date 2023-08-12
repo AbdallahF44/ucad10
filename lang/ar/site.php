@@ -31,8 +31,7 @@ return [
     'Articles'=>'المقالات',
     'Latest Atricles'=>'آخر المقالات',
     'View All'=>'عرض كل المقالات',
-    // 'The Latest Articles.'=>'آخر المقالات',
-
+    'Continuous Learning'=>'التعليم المستمر',
     
 
 

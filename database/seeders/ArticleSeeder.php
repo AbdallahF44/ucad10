@@ -101,8 +101,36 @@ class ArticleSeeder extends Seeder
         ]);
         $article->status=1;
         $article->type = 1; 
+        $article->save();
+
+
+        $article = new Article();
+        $article->setTranslations('title', [
+            'en' => 'Continuous Learning',
+            'ar' => 'التعليم المستمر',
+        ]);
+
+        $article->setTranslations('content', [
+            'en' => 'Established in the early 1990s as a community outreach program, the Center for Continuing Education (CCE) is still functioning as Birzeit University’s community service arm working in the areas of educational reform, professional and organizational development, enterprising & entrepreneurship and capacity building for the current and future work.
+
+            CCE endeavors to empower the local community and create sustainable development impact.  The underlying principles upon which CCE stands are innovation and creativity, teamwork, continuous learning and development, cooperation, knowledge sharing and partnerships, respect and integrity.  CCE is fully aware that these foundations are the basis of success and survival required of any individual or organization today, and more importantly in the future.',
+            'ar' =>'عمل مركز التعليم المستمر منذ تأسيسه عام 1991 م في مجالين رئيسيين، الأول الإجتماعي والذي تضمن أنشطة وبرامج ومشروعات إستهدفت تنمية المجتمع ورفاهيته، والثاني الإقتصادي والذي تضمن برامج ومشروعات إستهدفت المساهمة في النمو الإقتصادي في السياق الفلسطيني.
+
+            ويعتبر المركز مساهماً رئيسياً في إحداث الأثر الإيجابي في هذين المجالين على النحو التالي:
+            
+            أن يكون النظام التعليمي المحلي قادراً على تخريج شباب ذوي معرفة علمية وثقافة واسعة، مبدعين في عملهم، منتمين لمجتمعهم، قادرين على دفع عجلة الإقتصاد المحلي وقيادة التغيرات الإجتماعية لتحقيق دولة فلسطينية مزدهرة.
+            أن تصبح المجتمعات المحلية قادرة على دعم رفاهية جميع أفرادها بمن فيهم الفقراء وذوي الإعاقة والنساء والشباب والأطفال من خلال بناء قدراتهم المعرفية والمهنية وتعزيز مشاركاتهم المجتمعية واكسابهم مهارات التعبير عن أولوياتهم وتحقيق تطلعاتهم.
+            أن تتمكنالشركات الخاصة من المنافسة في الأسواق المحلية والإقليمية، ومن تقديم منتجات ذات جودة عالية لعملائها -قادرة على النمو باستمرار، والمساهمة في خلق فرص عمل جديدة للشباب الفلسطيني.
+            ولكي يتمكن مركز التعليم المستمر من إحداث ذلك فإنه يتخصص في تقديم خدمات التدريب، والإستشارات، وخدمات تطوير الأبحاث والدراسات للأفراد ولمؤسسات المجتمع المختلفة.
+            
+            ',
+
+        ]);
+        $article->status=1;
+        $article->type = 0; 
 
         $article->save();
+
 
     }
 }
