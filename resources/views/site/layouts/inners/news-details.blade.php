@@ -1,21 +1,21 @@
 @extends('site.layouts.app')
 
 @section('title')
-    {{ __('site.Articles') }}
+    {{ __('site.News') }}
 @endsection
 
 
 @section('content_title')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ getSiteName() }}</a></li>
     <li class="breadcrumb-item active" aria-current="page"> <a
-            href="{{ route('article-details', ['article' => $article]) }}">{{ __('site.Articles') }}</a></li>
+            href="{{ route('news-details', ['news' => $news]) }}">{{ __('site.News') }}</a></li>
 @endsection
 
 @section('content')
     @include('site.layouts.main-toolbar')
     <div class="container">
-        <h3>{{ $article->title }} </h3>
-        <p style="text-align: justify">{{ $article->content }}</p>
+        <h3>{{ $news->title }} </h3>
+        <p style="text-align: justify">{{ $news->content }}</p>
     </div>
 
 

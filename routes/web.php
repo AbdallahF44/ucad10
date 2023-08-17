@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\LocalizedContentController;
+use App\Http\Controllers\SendEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +45,7 @@ Route::get('workshops',\App\Http\Livewire\Workshops\Index::class)->name('worksho
         )->name('who-we-are');
         Route::get('/continuous-learning', [ArticleController::class, 'continuous_learning']
         )->name('continuous-learning');
-Route::get('/article1', [ArticleController::class, 'myarticle']
-)->name('article1');
+
 //Route::get('/articles', [ArticleController::class, 'articles']
 //)->name('articles');
 Route::get('/', [ArticleController::class, 'index']
@@ -59,8 +60,17 @@ Route::get('/جميع الدورات', [ArticleController::class, 'allCourses']
 
 Route::get('/workshop-details/{workshop}', [ArticleController::class, 'showWorkshopDetails'])->name('workshop-details');
 Route::get('/workshop-form/{workshop}', [ArticleController::class, 'WorkshopForm'])->name('workshop-form');
+Route::get('/اتصل بنا', [ArticleController::class, 'contactUs']
+)->name('اتصل بنا');
+Route::post('store-contact-us', [ContactUsController::class, 'store']
+)->name('store-contact-us');
 
+Route::get('/news-details/{news}', [ArticleController::class, 'showNewsDetails'])->name('news-details');
+Route::get('/all-news', [ArticleController::class, 'allNews'])->name('all-news');
 
+Route::get('/announcement-details/{announcement}', [ArticleController::class, 'showAnnouncementDetails'])->name('announcement-details');
+Route::get('/all-announcements', [ArticleController::class, 'allAnnouncements'])->name('all-announcements');
+// Route::post('send-email',[SendEmailController::class, 'sendEmail'])->name('send-email');
 
 Route::get('lang/{lang}', function ($lang) {
     if (in_array($lang, ['ar', 'en'])) {
