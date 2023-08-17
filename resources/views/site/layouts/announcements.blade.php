@@ -5,8 +5,8 @@
             <h2 class="title">آخر الإعلانات</h2>
             <span class="shape-line"><i class="icon-19"></i></span>
         </div>
-        
-        
+
+
         <div class="row g-5">
             @foreach ($announcements as $announcement )
             <!-- Start Event Grid  -->
@@ -28,7 +28,7 @@
                             </div>
                             <h5 class="title"><a href="event-details.html">{{$announcement->title}}</a></h5>
                             <p> {{ Str::limit($announcement->content, 100) }}</p>
-                           
+
                             <div class="read-more-btn">
                                 <a class="edu-btn btn-small btn-secondary" href="{{ route('announcement-details', ['announcement' => $announcement]) }}">Learn More <i class="icon-4"></i></a>
                             </div>
@@ -36,12 +36,12 @@
                     </div>
                 </div>
             </div>
- 
-    
+
+
     @endforeach
 </div>
     <div class="event-view-all-btn" data-sal-delay="150" data-sal="slide-up" data-sal-duration="1200">
-        <h6 class="view-text"> <a href="{{ route('all-announcements', ['announcement' => $announcement]) }}" class="btn-transparent">عرض الكل<i class="icon-4"></i></a></h6>
+        <h6 class="view-text"> <a href="{{ route('all-announcements', ['announcement' => $announcements]) }}" class="btn-transparent">عرض الكل<i class="icon-4"></i></a></h6>
     </div>
 
     <ul class="shape-group">

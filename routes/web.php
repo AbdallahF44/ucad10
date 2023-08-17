@@ -28,6 +28,7 @@ Route::get('articles',\App\Http\Livewire\Articles\Index::class)->name('articles'
 Route::get('advertisements',\App\Http\Livewire\Advertisements\Index::class)->name('advertisements');
 Route::get('news',\App\Http\Livewire\News\Index::class)->name('news');
 Route::get('workshops',\App\Http\Livewire\Workshops\Index::class)->name('workshops');
+Route::get('contact-us',\App\Http\Livewire\ContactUs\Index::class)->name('contact-us');
 
 // Route::get('/', function () {
 //     return view('site.index');

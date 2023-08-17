@@ -43,7 +43,7 @@
             @endforeach
         </div>
         <div class="event-view-all-btn" data-sal-delay="150" data-sal="slide-up" data-sal-duration="1200">
-            <h6 class="view-text"> <a href="{{ route('all-news', ['news' => $announcement]) }}"
+            <h6 class="view-text"> <a href="{{ route('all-news', ['news' => $news]) }}"
                     class="btn-transparent">{{ __('site.View All') }} <i class="icon-4"></i></a></h6>
         </div>
 
