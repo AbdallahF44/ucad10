@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\LocalizedContentController;
+use App\Http\Controllers\SendEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,7 +69,7 @@ Route::get('/all-news', [ArticleController::class, 'allNews'])->name('all-news')
 
 Route::get('/announcement-details/{announcement}', [ArticleController::class, 'showAnnouncementDetails'])->name('announcement-details');
 Route::get('/all-announcements', [ArticleController::class, 'allAnnouncements'])->name('all-announcements');
-
+// Route::post('send-email',[SendEmailController::class, 'sendEmail'])->name('send-email');
 
 Route::get('lang/{lang}', function ($lang) {
     if (in_array($lang, ['ar', 'en'])) {
