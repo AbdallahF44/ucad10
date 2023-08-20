@@ -93,7 +93,7 @@
                 <div class="modal-header" id="kt_modal_create_api_key_header">
                     <!--begin::Modal title-->
                     <h2>Content | <span
-                            style="color: {{$status?'#00ff00':'#ff0000'}}">{{$view_request_subject}}</span>
+                            style="color: {{$status==\App\Models\ContactUs::STATUS_READ?'#00ff00':'#ff0000'}}">{{$view_request_subject}}</span>
                     </h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
@@ -238,6 +238,28 @@
                                 <div
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
                                     {{date('y-m-d h:iA l', strtotime($view_request_sent_at))}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Actions :
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    <button
+                                        wire:click="markAsRead()"
+                                        class="btn btn-sm btn-primary"
+                                        role="button">Mark As Read</button>
+                                    <a
+                                        href="mailto:{{$view_request_from_email}}"
+                                        target="_blank"
+                                        class="btn btn-sm btn-primary"
+                                        role="button">Replay</a>
                                 </div>
                             </td>
                         </tr>

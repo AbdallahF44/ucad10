@@ -4,14 +4,17 @@ namespace App\Http\Livewire\News;
 
 use App\Models\Article;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $title;
     public $title_en;
     public $content;
     public $content_en;
     public $status;
+    public $image;
     public $news_id;
     public $view_news_title;
     public $view_news_title_en;
@@ -20,15 +23,19 @@ class Index extends Component
     public $view_news_status;
     public $view_news_created;
     public $edit_news_title;
+    public $view_news_image;
+    public $edit_news_image;
 
     protected $rules = [
-        'title' => 'required|min:10',
+        'title' => 'required',
         'content' => 'required|min:10',
     ];
+
     public function resetValues()
     {
         $this->reset();
     }
+
     public function store()
     {
         $this->validate();
@@ -45,7 +52,9 @@ class Index extends Component
         ]);
         $news->status = Article::STATUS_ACTIVE;
         $news->type = Article::TYPE_NEWS;
-
+        if ($this->image != null)
+            $news->addMedia($this->image)->toMediaCollection('articles_images');
+        $this->image = null;
         $news->save();
 //        Article::create([
 //            'title' => $this->title,
@@ -62,8 +71,9 @@ class Index extends Component
     {
         $news = Article::where('id', $id)->first();
         $this->view_news_title = isset($news->getTranslations('title', ['ar'])['ar'])?$news->getTranslations('title', ['ar'])['ar']:'لا يوجد عنوان بالعربي';
-        $this->view_news_title_en = isset($news->getTranslations('title', ['en'])['en'])?$news->getTranslations('title', ['en'])['en']:'No title in English!';
-        $this->view_news_content = isset($news->getTranslations('content', ['ar'])['ar'])?$news->getTranslations('content', ['ar'])['ar']:'لا يوجد محتوى بالعربي';
+        $this->view_news_title_en = isset($news->getTranslations('title', ['en'])['en']) ? $news->getTranslations('title', ['en'])['en'] : 'No title in English!';
+        $this->view_news_image = isset($news->getMedia('articles_images')[0]) ? $news->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
+        $this->view_news_content = isset($news->getTranslations('content', ['ar'])['ar']) ? $news->getTranslations('content', ['ar'])['ar'] : 'لا يوجد محتوى بالعربي';
         $this->view_news_content_en = isset($news->getTranslations('content', ['en'])['en'])?$news->getTranslations('content', ['en'])['en']:'No content in English!';
         $this->status = $news->status;
         $this->view_news_status = $news->status;
@@ -73,6 +83,7 @@ class Index extends Component
     public function closeView()
     {
         $this->view_news_title = '';
+        $this->view_news_image = '';
         $this->view_news_content = '';
         $this->view_news_status = '';
         $this->status = '';
@@ -84,7 +95,8 @@ class Index extends Component
         $this->news_id = $id;
         $this->edit_news_title = $news->title;
         $this->title = $news->getTranslations('title', ['ar'])['ar'];
-        $this->title_en = isset($news->getTranslations('title', ['en'])['en'])?$news->getTranslations('title', ['en'])['en']:'';
+        $this->edit_news_image = isset($news->getMedia('articles_images')[0]) ? $news->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
+        $this->title_en = isset($news->getTranslations('title', ['en'])['en']) ? $news->getTranslations('title', ['en'])['en'] : '';
         $this->content = $news->getTranslations('content', ['ar'])['ar'];
         $this->content_en = isset($news->getTranslations('content', ['en'])['en'])?$news->getTranslations('content', ['en'])['en']:'';
         $this->status = $news->status;
@@ -106,7 +118,11 @@ class Index extends Component
             'ar' => $this->content
         ]);
         $news->status = $this->status;
-
+        if ($this->image != null) {
+            isset($news->getMedia('articles_images')[0]) ? $news->deleteMedia($news->getMedia('articles_images')[0]) : '';
+            $news->addMedia($this->image)->toMediaCollection('articles_images');
+        }
+        $this->image = null;
         $news->save();
 //        $article->update([
 //            'title' => $this->title,
@@ -127,7 +143,9 @@ class Index extends Component
 
     public function destroy()
     {
-        Article::destroy($this->news_id);
+        $news = Article::find($this->news_id);
+        $news->deleteMedia($news->getMedia('articles_images')[0]);
+        $news->delete();
         $this->reset();
         toastr()->success('News Deleted Successfully.');
         $this->dispatchBrowserEvent('close-modal');

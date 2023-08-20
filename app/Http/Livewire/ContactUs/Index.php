@@ -8,6 +8,7 @@ use Livewire\Component;
 class Index extends Component
 {
     public $view_request_from;
+    public $view_request_id;
     public $view_request_from_email;
     public $view_request_from_mobile;
     public $view_request_receiver_type;
@@ -20,6 +21,7 @@ class Index extends Component
     public function viewRequest($id)
     {
         $request = ContactUs::where('id', $id)->first();
+        $this->view_request_id = $request->id;
         $this->view_request_from = $request->from_name;
         $this->view_request_from_email = $request->from_email;
         $this->view_request_from_mobile = $request->from_phone;
@@ -42,6 +44,15 @@ class Index extends Component
         $this->view_request_body = '';
         $this->view_request_sent_at = '';
         $this->status = '';
+    }
+
+    public function markAsRead()
+    {
+        ContactUs::where('id', $this->view_request_id)->update([
+            'status' => ContactUs::STATUS_READ
+        ]);
+        toastr()->success("Request Read Successfully.");
+        $this->status = ContactUs::STATUS_READ;
     }
 
     public function render()

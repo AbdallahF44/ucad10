@@ -9,6 +9,7 @@
                 <tr>
                     <th class="p-0 w-20px" style="border: none">#</th>
                     <th class="p-0 w-50px" style="border: none">Content Title</th>
+                    <th class="p-0 w-50px" style="border: none">Content Image</th>
                     <th class="p-0 w-50px" style="border: none">Content Status</th>
                     <th class="p-0 w-50px" style="border: none">Content Type</th>
                     <th class="p-0 w-50px" style="border: none">Created At</th>
@@ -32,6 +33,18 @@
                                     {!!isset($content->getTranslations('title', ['en'])['en']) ? $content->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
                                 @else
                                     {{$content->title}}
+                                @endif
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start"
+                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6 circle-shape">
+                                @if(isset($content->getMedia('articles_images')[0]))
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{$content->getMedia('articles_images')[0]->getUrl()}}"/>
+                                @else
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{asset('site/logo.png')}}"/>
                                 @endif
                             </div>
                         </td>
@@ -120,6 +133,9 @@
                     <!--end::Close-->
                 </div>
                 <!--end::Modal header-->
+                <div class="d-flex justify-content-center align-center">
+                    <img style="border-radius: 10px" class="w-300px h-300px m-4"
+                         src="{{$view_content_image}}"/></div>
                 <div class="table-responsive p-10">
                     <!--begin::Table-->
                     <table class="table align-middle gs-0 gy-5">

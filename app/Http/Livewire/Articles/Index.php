@@ -4,25 +4,30 @@ namespace App\Http\Livewire\Articles;
 
 use App\Models\Article;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $title;
     public $title_en;
     public $content;
     public $content_en;
     public $status;
+    public $image;
     public $article_id;
     public $view_article_title;
+    public $view_article_image;
     public $view_article_title_en;
     public $view_article_content;
     public $view_article_content_en;
     public $view_article_status;
     public $view_article_created;
     public $edit_article_title;
+    public $edit_article_image;
 
     protected $rules = [
-        'title' => 'required|min:10',
+        'title' => 'required',
         'content' => 'required|min:10',
     ];
     public function resetValues()
@@ -31,6 +36,7 @@ class Index extends Component
     }
     public function store()
     {
+//        dd($this->image);
         $this->validate();
         $article = new Article();
 
@@ -45,7 +51,9 @@ class Index extends Component
         ]);
         $article->status = Article::STATUS_ACTIVE;
         $article->type = Article::TYPE_ARTICLES;
-
+        if ($this->image != null)
+            $article->addMedia($this->image)->toMediaCollection('articles_images');
+        $this->image = null;
         $article->save();
 //        Article::create([
 //            'title' => $this->title,
@@ -61,10 +69,11 @@ class Index extends Component
     public function viewArticle($id)
     {
         $article = Article::where('id', $id)->first();
-        $this->view_article_title = isset($article->getTranslations('title', ['ar'])['ar'])?$article->getTranslations('title', ['ar'])['ar']:'لا يوجد عنوان بالعربي';
-        $this->view_article_title_en = isset($article->getTranslations('title', ['en'])['en'])?$article->getTranslations('title', ['en'])['en']:'No title in English!';
-        $this->view_article_content = isset($article->getTranslations('content', ['ar'])['ar'])?$article->getTranslations('content', ['ar'])['ar']:'لا يوجد محتوى بالعربي';
-        $this->view_article_content_en = isset($article->getTranslations('content', ['en'])['en'])?$article->getTranslations('content', ['en'])['en']:'No content in English!';
+        $this->view_article_title = isset($article->getTranslations('title', ['ar'])['ar']) ? $article->getTranslations('title', ['ar'])['ar'] : 'لا يوجد عنوان بالعربي';
+        $this->view_article_image = isset($article->getMedia('articles_images')[0]) ? $article->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
+        $this->view_article_title_en = isset($article->getTranslations('title', ['en'])['en']) ? $article->getTranslations('title', ['en'])['en'] : 'No title in English!';
+        $this->view_article_content = isset($article->getTranslations('content', ['ar'])['ar']) ? $article->getTranslations('content', ['ar'])['ar'] : 'لا يوجد محتوى بالعربي';
+        $this->view_article_content_en = isset($article->getTranslations('content', ['en'])['en']) ? $article->getTranslations('content', ['en'])['en'] : 'No content in English!';
         $this->status = $article->status;
         $this->view_article_status = $article->status;
         $this->view_article_created = $article->created_at;
@@ -73,6 +82,7 @@ class Index extends Component
     public function closeView()
     {
         $this->view_article_title = '';
+        $this->view_article_image = '';
         $this->view_article_content = '';
         $this->view_article_status = '';
         $this->status = '';
@@ -83,6 +93,7 @@ class Index extends Component
         $article = Article::findorFail($id);
         $this->article_id = $id;
         $this->edit_article_title = $article->title;
+        $this->edit_article_image = isset($article->getMedia('articles_images')[0]) ? $article->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
         $this->title = $article->getTranslations('title', ['ar'])['ar'];
         $this->title_en = isset($article->getTranslations('title', ['en'])['en'])?$article->getTranslations('title', ['en'])['en']:'';
         $this->content = $article->getTranslations('content', ['ar'])['ar'];
@@ -106,7 +117,12 @@ class Index extends Component
             'ar' => $this->content
         ]);
         $article->status = $this->status;
-
+//        dd($this->image);
+        if ($this->image != null) {
+            isset($article->getMedia('articles_images')[0]) ? $article->deleteMedia($article->getMedia('articles_images')[0]) : '';
+            $article->addMedia($this->image)->toMediaCollection('articles_images');
+        }
+        $this->image = null;
         $article->save();
 //        $article->update([
 //            'title' => $this->title,
@@ -127,7 +143,9 @@ class Index extends Component
 
     public function destroy()
     {
-        Article::destroy($this->article_id);
+        $article = Article::find($this->article_id);
+        $article->deleteMedia($article->getMedia('articles_images')[0]);
+        $article->delete();
         $this->reset();
         toastr()->success('Article Deleted Successfully.');
         $this->dispatchBrowserEvent('close-modal');

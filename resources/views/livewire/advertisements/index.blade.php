@@ -9,6 +9,7 @@
                 <tr>
                     <th class="p-0 w-20px" style="border: none">#</th>
                     <th class="p-0 w-50px" style="border: none">Advertisement Title</th>
+                    <th class="p-0 w-50px" style="border: none">Advertisement Image</th>
                     <th class="p-0 w-50px" style="border: none">Advertisement Status</th>
                     <th class="p-0 w-50px" style="border: none">Created At</th>
                     <th class="p-0 w-50px" style="border: none">Actions</th>
@@ -31,6 +32,18 @@
                                     {!!isset($advertisement->getTranslations('title', ['en'])['en']) ? $advertisement->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
                                 @else
                                     {{$advertisement->title}}
+                                @endif
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start"
+                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6 circle-shape">
+                                @if(isset($advertisement->getMedia('articles_images')[0]))
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{$advertisement->getMedia('articles_images')[0]->getUrl()}}"/>
+                                @else
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{asset('site/logo.png')}}"/>
                                 @endif
                             </div>
                         </td>
@@ -119,7 +132,7 @@
                 </div>
                 <!--end::Modal header-->
                 <!--begin::Form-->
-                <form wire:submit.prevent="store" id="kt_modal_edit_card" class="form">
+                <form wire:submit.prevent="store" id="kt_modal_edit_card" class="form" enctype="multipart/form-data">
                     <!--begin::Modal body-->
                     <div class="modal-body py-10 px-lg-17">
                         <!--begin::Scroll-->
@@ -185,6 +198,21 @@
                                 @enderror
                             </div>
                             <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="fs-5 fw-bold mb-2">Advertisement Image</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" wire:model="image" class="form-control form-control-solid"
+                                       accept="image/*"
+                                       placeholder="Your Advertisement Images" name="image" value="{{old('image')}}"/>
+                                <!--end::Input-->
+                                @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
                         </div>
                         <!--end::Scroll-->
                     </div>
@@ -247,6 +275,9 @@
                     </div>
                     <!--end::Close-->
                 </div>
+                <div class="d-flex justify-content-center align-center">
+                    <img style="border-radius: 10px" class="w-300px h-300px m-4"
+                         src="{{$view_advertisement_image}}"/></div>
                 <!--end::Modal header-->
                 <div class="table-responsive p-10">
                     <!--begin::Table-->
@@ -406,7 +437,7 @@
                 <!--end::Modal header-->
                 <!--begin::Modal body-->
                 <!--begin::Form-->
-                <form wire:submit.prevent="update" id="kt_modal_edit_card" class="form">
+                <form wire:submit.prevent="update" id="kt_modal_edit_card" class="form" enctype="multipart/form-data">
                     <!--begin::Modal body-->
                     <div class="modal-body py-10 px-lg-17">
                         <!--begin::Scroll-->
@@ -477,6 +508,24 @@
                                 </select>
                                 <!--end::Select-->
                                 @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
+                            <div class="d-flex justify-content-center align-center">
+                                <img style="border-radius: 10px" class="w-200px h-200px m-4"
+                                     src="{{$edit_advertisement_image}}"/></div>
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="fs-5 fw-bold mb-2">Advertisement Image</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" wire:model="image" class="form-control form-control-solid"
+                                       accept="image/*"
+                                       placeholder="Your Advertisement Images" name="image" value="{{old('image')}}"/>
+                                <!--end::Input-->
+                                @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
