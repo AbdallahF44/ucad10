@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Workshops;
 
 use App\Models\Workshop;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $title;
     public $description;
     public $start_date;
@@ -21,9 +23,12 @@ class Index extends Component
     public $view_workshop_url;
     public $workshop_id;
     public $edit_workshop_title;
+    public $image;
+    public $view_workshop_image;
+    public $edit_workshop_image;
 
     protected $rules = [
-        'title' => 'required|min:5',
+        'title' => 'required',
         'description' => 'required',
         'start_date' => 'required|date',
         'deadline' => 'required|date',
@@ -38,7 +43,7 @@ class Index extends Component
     public function store()
     {
         $this->validate();
-        Workshop::create([
+        $workshop = Workshop::create([
             'title' => $this->title,
             'description' => $this->description,
             'start_date' => $this->start_date,
@@ -46,15 +51,21 @@ class Index extends Component
             'deadline' => $this->deadline,
             'url' => $this->url,
         ]);
+        if ($this->image != null)
+            $workshop->addMedia($this->image)->toMediaCollection('workshops_images');
+        $this->image = null;
+        $workshop->save();
         $this->reset();
         toastr()->success("Workshop Added Successfully.");
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function viewWorkshop($id)
+    public
+    function viewWorkshop($id)
     {
         $workshop = Workshop::where('id', $id)->first();
         $this->view_workshop_title = $workshop->title;
+        $this->view_workshop_image = isset($workshop->getMedia('workshops_images')[0]) ? $workshop->getMedia('workshops_images')[0]->getUrl() : asset('site/logo.png');
         $this->view_workshop_description = $workshop->description;
         $this->view_workshop_start_date = $workshop->start_date;
         $this->view_workshop_schedule = $workshop->schedule;
@@ -65,6 +76,7 @@ class Index extends Component
     public function closeView()
     {
         $this->view_workshop_title = '';
+        $this->view_workshop_image = '';
         $this->view_workshop_description = '';
         $this->view_workshop_start_date = '';
         $this->view_workshop_schedule = '';
@@ -76,6 +88,7 @@ class Index extends Component
     {
         $workshop = Workshop::findorFail($id);
         $this->workshop_id = $id;
+        $this->edit_workshop_image = isset($workshop->getMedia('workshops_images')[0]) ? $workshop->getMedia('workshops_images')[0]->getUrl() : asset('site/logo.png');
         $this->edit_workshop_title = $workshop->title;
         $this->title = $workshop->title;
         $this->description = $workshop->description;
@@ -98,6 +111,12 @@ class Index extends Component
             'deadline' => $this->deadline,
             'url' => $this->url,
         ]);
+        if ($this->image != null) {
+            isset($workshop->getMedia('workshops_images')[0]) ? $workshop->deleteMedia($workshop->getMedia('workshops_images')[0]) : '';
+            $workshop->addMedia($this->image)->toMediaCollection('workshops_images');
+        }
+        $this->image = null;
+        $workshop->save();
         toastr()->success('Workshop Updated Successfully.');
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');
@@ -112,7 +131,9 @@ class Index extends Component
 
     public function destroy()
     {
-        Workshop::destroy($this->workshop_id);
+        $workshop = Workshop::find($this->workshop_id);
+        $workshop->deleteMedia($workshop->getMedia('workshops_images')[0]);
+        $workshop->delete();
         $this->reset();
         toastr()->success('Workshop Deleted Successfully.');
         $this->dispatchBrowserEvent('close-modal');

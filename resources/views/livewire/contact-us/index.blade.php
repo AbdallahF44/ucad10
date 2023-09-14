@@ -1,6 +1,6 @@
 <main>
 
-    @if(count($contents)!=0)
+    @if(count($content_us)!=0)
         <div class="table-responsive">
             <!--begin::Table-->
             <table class="table align-middle gs-0 gy-5">
@@ -8,18 +8,18 @@
                 <thead>
                 <tr>
                     <th class="p-0 w-20px" style="border: none">#</th>
-                    <th class="p-0 w-50px" style="border: none">Content Title</th>
-                    <th class="p-0 w-50px" style="border: none">Content Image</th>
-                    <th class="p-0 w-50px" style="border: none">Content Status</th>
-                    <th class="p-0 w-50px" style="border: none">Content Type</th>
-                    <th class="p-0 w-50px" style="border: none">Created At</th>
+                    <th class="p-0 w-50px" style="border: none">Request From</th>
+                    <th class="p-0 w-50px" style="border: none">Request Mobile</th>
+                    <th class="p-0 w-50px" style="border: none">Request To</th>
+                    <th class="p-0 w-50px" style="border: none">Request Title</th>
+                    <th class="p-0 w-50px" style="border: none">Sent At</th>
                     <th class="p-0 w-50px" style="border: none">Actions</th>
                 </tr>
                 </thead>
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>
-                @foreach($contents as $content)
+                @foreach($content_us as $request)
                     <tr>
                         <th style="text-align: center">
                             <div class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
@@ -29,56 +29,39 @@
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                @if(lang()=='en')
-                                    {!!isset($content->getTranslations('title', ['en'])['en']) ? $content->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
-                                @else
-                                    {{$content->title}}
-                                @endif
-                            </div>
-                        </td>
-                        <td style="text-align: center">
-                            <div style="text-align: start"
-                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6 circle-shape">
-                                @if(isset($content->getMedia('articles_images')[0]))
-                                    <img style="border-radius: 50%" class="w-50px h-50px"
-                                         src="{{$content->getMedia('articles_images')[0]->getUrl()}}"/>
-                                @else
-                                    <img style="border-radius: 50%" class="w-50px h-50px"
-                                         src="{{asset('site/logo.png')}}"/>
-                                @endif
+                                {{$request->from_name}}
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$content->status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}
+                                {{$request->from_phone}}
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                @if($content->type==\App\Models\Article::TYPE_ARTICLES)
-                                    Articles
-                                @elseif($content->type==\App\Models\Article::TYPE_ADVERTISEMENTS)
-                                    Advertisement
-                                @elseif($content->type==\App\Models\Article::TYPE_NEWS)
-                                    News
-                                @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
-                                    UNCATEGORIZED
-                                @endif
+                                {{$request->to}}
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$content->created_at}}
+                                {{$request->subject}}
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start"
+                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                {{date('y-m-d h:iA l', strtotime($request->created_at))}}
+
                             </div>
                         </td>
                         <td style="text-align: center">
                             <div style="display: flex;gap: 5px">
                                 <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
                                     <button
-                                        wire:click="viewContent({{ $content->id }})"
+                                        wire:click="viewRequest({{ $request->id }})"
                                         class="btn btn-sm btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-target="#view_content"
@@ -97,7 +80,7 @@
 
         </div>
     @else
-        <div>There is No Contents Yet!</div>
+        <div>There is No Requests Yet!</div>
     @endif
 
     <!--begin::Modal - Create Api Key-->
@@ -110,7 +93,7 @@
                 <div class="modal-header" id="kt_modal_create_api_key_header">
                     <!--begin::Modal title-->
                     <h2>Content | <span
-                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_content_title}}</span>
+                            style="color: {{$status==\App\Models\ContactUs::STATUS_READ?'#00ff00':'#ff0000'}}">{{$view_request_subject}}</span>
                     </h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
@@ -133,9 +116,6 @@
                     <!--end::Close-->
                 </div>
                 <!--end::Modal header-->
-                <div class="d-flex justify-content-center align-center">
-                    <img style="border-radius: 10px" class="w-300px h-300px m-4"
-                         src="{{$view_content_image}}"/></div>
                 <div class="table-responsive p-10">
                     <!--begin::Table-->
                     <table class="table align-middle gs-0 gy-5">
@@ -153,13 +133,13 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Title (AR):
+                                    Request From Name :
                                 </div>
                             </td>
                             <td style="text-align: center">
                                 <div style="text-align: right;direction: rtl"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_content_title}}
+                                    {{$view_request_from}}
                                 </div>
                             </td>
                         </tr>
@@ -167,13 +147,13 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Title (EN):
+                                    Request From Email :
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
+                                <div
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_content_title_en}}
+                                    {{$view_request_from_email}}
                                 </div>
                             </td>
                         </tr>
@@ -181,13 +161,27 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Content (AR):
+                                    Request From Mobile :
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_request_from_mobile}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Request Receiver Type :
                                 </div>
                             </td>
                             <td style="text-align: center">
                                 <div style="text-align: right;direction: rtl"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_content_content}}
+                                    {{$view_request_receiver_type}}
                                 </div>
                             </td>
                         </tr>
@@ -195,13 +189,13 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Content (EN):
+                                    Request To :
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
+                                <div style="text-align: right;direction: rtl"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    {{$view_content_content_en}}
+                                    {{$view_request_to}}
                                 </div>
                             </td>
                         </tr>
@@ -209,14 +203,13 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Status:
+                                    Request Subject :
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
-                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6"><span
-                                        style="color: {{$view_content_status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">
-                                    {{$view_content_status==\App\Models\Article::STATUS_ACTIVE?'Active':'Inactive'}}</span>
+                                <div style="text-align: right;direction: rtl"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{$view_request_subject}}
                                 </div>
                             </td>
                         </tr>
@@ -224,25 +217,52 @@
                             <td style="text-align: center">
                                 <div style="text-align: start"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    Type:
+                                    Request Body :
                                 </div>
                             </td>
                             <td style="text-align: center">
-                                <div style="text-align: start"
+                                <div style="text-align: right;direction: rtl;text-align: justify"
                                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                    @if($view_content_type==\App\Models\Article::TYPE_ARTICLES)
-                                        Articles
-                                    @elseif($view_content_type==\App\Models\Article::TYPE_ADVERTISEMENTS)
-                                        Advertisement
-                                    @elseif($view_content_type==\App\Models\Article::TYPE_NEWS)
-                                        News
-                                    @elseif($content->type==\App\Models\Article::TYPE_UNCATEGORIZED)
-                                        UNCATEGORIZED
-                                    @endif
+                                    {{$view_request_body}}
                                 </div>
                             </td>
                         </tr>
-
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Request Sent At :
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    {{date('y-m-d h:iA l', strtotime($view_request_sent_at))}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    Actions :
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <div
+                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                    <button
+                                        wire:click="markAsRead()"
+                                        class="btn btn-sm btn-primary"
+                                        role="button">Mark As Read</button>
+                                    <a
+                                        href="mailto:{{$view_request_from_email}}"
+                                        target="_blank"
+                                        class="btn btn-sm btn-primary"
+                                        role="button">Replay</a>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                         <!--end::Table body-->
                     </table>

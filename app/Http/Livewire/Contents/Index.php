@@ -4,10 +4,13 @@ namespace App\Http\Livewire\Contents;
 
 use App\Models\Article;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $view_content_title;
+    public $view_content_image;
     public $view_content_title_en;
     public $view_content_content;
     public $view_content_content_en;
@@ -18,6 +21,7 @@ class Index extends Component
     public function viewContent($id)
     {
         $content = Article::where('id', $id)->first();
+        $this->view_content_image = isset($content->getMedia('articles_images')[0]) ? $content->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
         $this->view_content_title = isset($content->getTranslations('title', ['ar'])['ar']) ? $content->getTranslations('title', ['ar'])['ar'] : 'لا يوجد عنوان بالعربي';
         $this->view_content_title_en = isset($content->getTranslations('title', ['en'])['en']) ? $content->getTranslations('title', ['en'])['en'] : 'No title in English!';
         $this->view_content_content = isset($content->getTranslations('content', ['ar'])['ar']) ? $content->getTranslations('content', ['ar'])['ar'] : 'لا يوجد محتوى بالعربي';
@@ -29,6 +33,7 @@ class Index extends Component
 
     public function closeView()
     {
+        $this->view_content_image = '';
         $this->view_content_title = '';
         $this->view_content_title_en = '';
         $this->view_content_content = '';

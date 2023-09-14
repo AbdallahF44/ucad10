@@ -4,14 +4,17 @@ namespace App\Http\Livewire\Advertisements;
 
 use App\Models\Article;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $title;
     public $title_en;
     public $content;
     public $content_en;
     public $status;
+    public $image;
     public $advertisement_id;
     public $view_advertisement_title;
     public $view_advertisement_title_en;
@@ -20,15 +23,19 @@ class Index extends Component
     public $view_advertisement_status;
     public $view_advertisement_created;
     public $edit_advertisement_title;
+    public $view_advertisement_image;
+    public $edit_advertisement_image;
 
     protected $rules = [
-        'title' => 'required|min:10',
+        'title' => 'required',
         'content' => 'required|min:10',
     ];
+
     public function resetValues()
     {
         $this->reset();
     }
+
     public function store()
     {
         $this->validate();
@@ -45,6 +52,9 @@ class Index extends Component
         ]);
         $advertisement->status = Article::STATUS_ACTIVE;
         $advertisement->type = Article::TYPE_ADVERTISEMENTS;
+        if ($this->image != null)
+            $advertisement->addMedia($this->image)->toMediaCollection('articles_images');
+        $this->image = null;
 
         $advertisement->save();
 //        Article::create([
@@ -62,6 +72,7 @@ class Index extends Component
     {
         $advertisement = Article::where('id', $id)->first();
         $this->view_advertisement_title = isset($advertisement->getTranslations('title', ['ar'])['ar']) ? $advertisement->getTranslations('title', ['ar'])['ar'] : 'لا يوجد عنوان بالعربي';
+        $this->view_advertisement_image = isset($advertisement->getMedia('articles_images')[0]) ? $advertisement->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
         $this->view_advertisement_title_en = isset($advertisement->getTranslations('title', ['en'])['en']) ? $advertisement->getTranslations('title', ['en'])['en'] : 'No title in English!';
         $this->view_advertisement_content = isset($advertisement->getTranslations('content', ['ar'])['ar']) ? $advertisement->getTranslations('content', ['ar'])['ar'] : 'لا يوجد محتوى بالعربي';
         $this->view_advertisement_content_en = isset($advertisement->getTranslations('content', ['en'])['en']) ? $advertisement->getTranslations('content', ['en'])['en'] : 'No content in English!';
@@ -73,6 +84,7 @@ class Index extends Component
     public function closeView()
     {
         $this->view_advertisement_title = '';
+        $this->view_advertisement_image = '';
         $this->view_advertisement_content = '';
         $this->view_advertisement_status = '';
         $this->view_advertisement_created = '';
@@ -83,6 +95,7 @@ class Index extends Component
         $advertisement = Article::findorFail($id);
         $this->advertisement_id = $id;
         $this->edit_advertisement_title = $advertisement->title;
+        $this->edit_advertisement_image = isset($advertisement->getMedia('articles_images')[0]) ? $advertisement->getMedia('articles_images')[0]->getUrl() : asset('site/logo.png');
         $this->title = $advertisement->getTranslations('title', ['ar'])['ar'];
         $this->title_en = isset($advertisement->getTranslations('title', ['en'])['en']) ? $advertisement->getTranslations('title', ['en'])['en'] : '';
         $this->content = $advertisement->getTranslations('content', ['ar'])['ar'];
@@ -107,7 +120,11 @@ class Index extends Component
         ]);
         $advertisement->status = $this->status;
         $advertisement->type = Article::TYPE_ADVERTISEMENTS;
-
+        if ($this->image != null) {
+            isset($advertisement->getMedia('articles_images')[0]) ? $advertisement->deleteMedia($advertisement->getMedia('articles_images')[0]) : '';
+            $advertisement->addMedia($this->image)->toMediaCollection('articles_images');
+        }
+        $this->image = null;
         $advertisement->save();
 //        $advertisement->update([
 //            'title' => $this->title,
@@ -128,7 +145,9 @@ class Index extends Component
 
     public function destroy()
     {
-        Article::destroy($this->advertisement_id);
+        $advertisement = Article::find($this->advertisement_id);
+        $advertisement->deleteMedia($advertisement->getMedia('articles_images')[0]);
+        $advertisement->delete();
         $this->reset();
         toastr()->success('Advertisement Deleted Successfully.');
         $this->dispatchBrowserEvent('close-modal');

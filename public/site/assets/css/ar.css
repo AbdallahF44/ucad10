@@ -1,4 +1,4 @@
 /* my meny */
 .mainmenu-nav .mainmenu li.has-droupdown > .mymenu::after {
-    left: -20px !important; 
+    left: -20px !important;
 }

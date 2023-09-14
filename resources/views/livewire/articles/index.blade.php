@@ -9,6 +9,7 @@
                 <tr>
                     <th class="p-0 w-20px" style="border: none">#</th>
                     <th class="p-0 w-50px" style="border: none">Article Title</th>
+                    <th class="p-0 w-50px" style="border: none">Article Image</th>
                     <th class="p-0 w-50px" style="border: none">Article Status</th>
                     <th class="p-0 w-50px" style="border: none">Created At</th>
                     <th class="p-0 w-50px" style="border: none">Actions</th>
@@ -31,6 +32,18 @@
                                     {!!isset($article->getTranslations('title', ['en'])['en']) ? $article->getTranslations('title', ['en'])['en'] : "<span style='color: #ff0000'>No Title in English!</span>"!!}
                                 @else
                                     {{$article->title}}
+                                @endif
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start"
+                                 class="text-dark fw-bolder text-hover-primary mb-1 fs-6 circle-shape">
+                                @if(isset($article->getMedia('articles_images')[0]))
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{$article->getMedia('articles_images')[0]->getUrl()}}"/>
+                                @else
+                                    <img style="border-radius: 50%" class="w-50px h-50px"
+                                         src="{{asset('site/logo.png')}}"/>
                                 @endif
                             </div>
                         </td>
@@ -120,7 +133,7 @@
                 </div>
                 <!--end::Modal header-->
                 <!--begin::Form-->
-                <form wire:submit.prevent="store" id="kt_modal_edit_card" class="form">
+                <form wire:submit.prevent="store" id="kt_modal_edit_card" class="form" enctype="multipart/form-data">
                     <!--begin::Modal body-->
                     <div class="modal-body py-10 px-lg-17">
                         <!--begin::Scroll-->
@@ -186,6 +199,21 @@
                                 @enderror
                             </div>
                             <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="fs-5 fw-bold mb-2">Article Image</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" wire:model="image" class="form-control form-control-solid"
+                                       accept="image/*"
+                                       placeholder="Your Article Images" name="image" value="{{old('image')}}"/>
+                                <!--end::Input-->
+                                @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
                         </div>
                         <!--end::Scroll-->
                     </div>
@@ -214,27 +242,27 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-        <!--end::Modal - Create Api Key-->
-        <!--begin::Modal - Create Api Key-->
-        <div wire:ignore.self class="modal fade" id="view_article" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <!--begin::Modal header-->
-                    <div class="modal-header" id="kt_modal_create_api_key_header">
-                        <!--begin::Modal title-->
-                        {{--                    @dd($view_article_title)--}}
-                        <h2>Article | <span
-                                style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_article_title}}</span>
-                        </h2>
-                        <!--end::Modal title-->
-                        <!--begin::Close-->
-                        <div class="btn btn-sm btn-icon btn-active-color-primary" model:click="closeView()"
-                             data-bs-dismiss="modal">
+    <!--end::Modal - Create Api Key-->
+    <!--begin::Modal - Create Api Key-->
+    <div wire:ignore.self class="modal fade" id="view_article" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_create_api_key_header">
+                    <!--begin::Modal title-->
+                    {{--                    @dd($view_article_title)--}}
+                    <h2>Article | <span
+                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$view_article_title}}</span>
+                    </h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" model:click="closeView()"
+                         data-bs-dismiss="modal">
 
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                            <span class="svg-icon svg-icon-1">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none">
                                     <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
@@ -244,11 +272,14 @@
                                           fill="black"/>
                                 </svg>
                             </span>
-                            <!--end::Svg Icon-->
+                        <!--end::Svg Icon-->
                     </div>
                     <!--end::Close-->
                 </div>
                 <!--end::Modal header-->
+                <div class="d-flex justify-content-center align-center">
+                    <img style="border-radius: 10px" class="w-300px h-300px m-4"
+                         src="{{$view_article_image}}"/></div>
                 <div class="table-responsive p-10">
                     <!--begin::Table-->
                     <table class="table align-middle gs-0 gy-5">
@@ -408,7 +439,7 @@
                 <!--end::Modal header-->
                 <!--begin::Modal body-->
                 <!--begin::Form-->
-                <form wire:submit.prevent="update" id="kt_modal_edit_card" class="form">
+                <form wire:submit.prevent="update" id="kt_modal_edit_card" class="form" enctype="multipart/form-data">
                     <!--begin::Modal body-->
                     <div class="modal-body py-10 px-lg-17">
                         <!--begin::Scroll-->
@@ -474,11 +505,33 @@
                                 <select name="status" data-hide-search="true" wire:model="status"
                                         data-placeholder="Select a Status..." class="form-select form-select-solid">
                                     <option disabled>Select a Status...</option>
-                                    <option value="{{\App\Models\Article::STATUS_ACTIVE}}" style="background-color: #00ff00">Active</option>
-                                    <option value="{{\App\Models\Article::STATUS_INACTIVE}}" style="background-color: #ff0000">Inactive</option>
+                                    <option value="{{\App\Models\Article::STATUS_ACTIVE}}"
+                                            style="background-color: #00ff00">Active
+                                    </option>
+                                    <option value="{{\App\Models\Article::STATUS_INACTIVE}}"
+                                            style="background-color: #ff0000">Inactive
+                                    </option>
                                 </select>
                                 <!--end::Select-->
                                 @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!--end::Input group-->
+                            <div class="d-flex justify-content-center align-center">
+                                <img style="border-radius: 10px" class="w-200px h-200px m-4"
+                                     src="{{$edit_article_image}}"/></div>
+                            <!--begin::Input group-->
+                            <div class="mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="fs-5 fw-bold mb-2">Article Image</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" wire:model="image" class="form-control form-control-solid"
+                                       accept="image/*"
+                                       placeholder="Your Article Images" name="image" value="{{old('image')}}"/>
+                                <!--end::Input-->
+                                @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -509,20 +562,20 @@
         <!--end::Form-->
         <!--end::Modal body-->
     </div>
-        <!--end::Modal - Edit article-->
-        <div wire:ignore.self class="modal fade" id="delete_article" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <!--begin::Modal content-->
-                <div class="modal-content">
+    <!--end::Modal - Edit article-->
+    <div wire:ignore.self class="modal fade" id="delete_article" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
 
-                    <div style="text-align: right">
-                        <!--begin::Close-->
-                        <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()"
-                             data-bs-dismiss="modal">
+                <div style="text-align: right">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" wire:click="resetValues()"
+                         data-bs-dismiss="modal">
 
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                            <span class="svg-icon svg-icon-1">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none">
                                     <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
@@ -532,41 +585,41 @@
                                           fill="black"/>
                                 </svg>
                             </span>
-                            <!--end::Svg Icon-->
-                        </div>
-                        <!--end::Close-->
+                        <!--end::Svg Icon-->
                     </div>
-                    <!--begin::Modal header-->
-                    <div class="modal-header" id="kt_modal_create_api_key_header">
-                        <!--begin::Modal title-->
-                        <h2>Are you sure you want delete <span
-                                style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$title}}</span>
-                            article?</h2>
-                        <form wire:submit.prevent="destroy" id="kt_modal_edit_card" class="form">
-                            <!--begin::Modal body--> <!--begin::Modal footer-->
-                            <div class="modal-footer flex-center">
-                                <!--begin::Button-->
-                                <button type="submit" wire:target="destroy" :disabled="$disabled"
-                                        class="btn btn-danger">
-                                    <span class="indicator-label">Yes</span>
-                                    <span class="indicator-progress">Please wait...
-                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                                <!--end::Button-->
-                            </div>
-                            <!--end::Modal footer-->
-                        </form>
-                        <!--end::Modal title-->
-                    </div>
-                    <!--end::Modal header-->
-                    <!--begin::Form-->
-
-                    <!--end::Form-->
+                    <!--end::Close-->
                 </div>
-                <!--end::Modal content-->
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_create_api_key_header">
+                    <!--begin::Modal title-->
+                    <h2>Are you sure you want delete <span
+                            style="color: {{$status==\App\Models\Article::STATUS_ACTIVE?'#00ff00':'#ff0000'}}">{{$title}}</span>
+                        article?</h2>
+                    <form wire:submit.prevent="destroy" id="kt_modal_edit_card" class="form">
+                        <!--begin::Modal body--> <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="submit" wire:target="destroy" :disabled="$disabled"
+                                    class="btn btn-danger">
+                                <span class="indicator-label">Yes</span>
+                                <span class="indicator-progress">Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Modal title-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Form-->
+
+                <!--end::Form-->
             </div>
-            <!--end::Modal dialog-->
+            <!--end::Modal content-->
         </div>
+        <!--end::Modal dialog-->
+    </div>
 
 </main>
 
