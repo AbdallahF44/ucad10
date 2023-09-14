@@ -99,53 +99,14 @@
                             <li class="has-droupdown"><a href="#">{{ __('site.Admission and Registration') }}</a>
                                 <ul class="submenu">
                                     <li><a href="">{{ __('site.About Admission And Registration') }}</a>
-                                    <li><a href="course-two.html">{{ __('site.How to choose your major') }}</a></li>
-                                    <li><a href="course-four.html">{{ __('site.New Students') }}</a></li>
-                                    <li><a href="course-three.html">{{ __('site.How to join College') }}</a></li>
-                                    <li><a href="course-five.html">{{ __('site.Frequently Asked Questions') }}</a></li>
-                                    <li><a href="course-details.html">{{ __('site.Students’ Guidelines') }}</a></li>
-                                    <li><a href="course-details.html">{{ __('site.Important Dates') }}</a></li>
+                                    <li><a href="">{{ __('site.How to choose your major') }}</a></li>
+                                    <li><a href="">{{ __('site.New Students') }}</a></li>
+                                    <li><a href="">{{ __('site.How to join College') }}</a></li>
+                                    <li><a href="">{{ __('site.Frequently Asked Questions') }}</a></li>
+                                    <li><a href="">{{ __('site.Students’ Guidelines') }}</a></li>
+                                    <li><a href="">{{ __('site.Important Dates') }}</a></li>
                                 </ul>
                             </li>
-
-                            {{-- <li class="has-droupdown"><a href="#">{{__("site.Academic Degree")}}</a>
-                                <ul class="mega-menu">
-                                    <li>
-                                        <h6 class="menu-title">{{__("site.Bachelor")}}</h6>
-                                        <ul class="submenu mega-sub-menu-01">
-               الأعمال التطوعية
-1-يوم ترفيهي مع الأطفال الأيتام في قرية الأيتام SOS --> إحضار هدايا للأطفال واللعب معهم.
-2-المساعدة في قطف الزيتون--> عمل جماعي تطوعي شاركت فيه.
-
-الأنشطة التي شاركت فيها في المدرسة:
-1-عضوة في نادي اللغة الإنجليزية -->المشاركة في ورش العمل، والتحدث مع الأجانب الزوار للمدرسة.
-
-2-من أصدقاء المكتبة --> تنظيم وإشراف على فعاليات داخل المكتبة مثل معارض الكتب وورش القراءة.
-                                          --> وتشجيع زملائي على قراءة الكتب من خلال توصية الكتب المفضلة والمشاركة في مناقشات حول بعض الكتب.
-
-
-3-المشاركة في العديد من المسابقات المنهجية واللامنهجية.
-
-الخبرات
-المشاركة في العديد من المسابقات في العديد من المجالات ومنها: 
-1-الرسم --> قدمت رسمات في حرية الفرد في التعبير عن رأيه، والعنف ضد المرأة.
-2-كتابة القصة القصيرة -->كتبت قصة عن معاناة الشعب الفلسطيني، قصة بعنوان كما تدين تدان.
-3-تصميم الفيديوهات -->صممت فيديو مع فريق من زميلاتي عن أهمية التعليم.
-                             <li><a href="about-one.html">About Us 1</a></li>
-                                            <li><a href="about-two.html">About Us 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h6 class="menu-title">{{__('site.Diploma')}}</h6>
-                                        <ul class="submenu mega-sub-menu-01">
-                                            <li><a href="gallery-grid.html">{{__('site.Gallery Grid')}}</a></li>
-                                            <li><a href="gallery-masonry.html">{{__('site.Gallery Masonry')}}</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li> --}}
-
-
                             <li class="has-droupdown"><a href="#">{{ __('site.Development and Quality') }}</a>
                                 <ul class="submenu">
                                     <li><a href="">{{ __('site.About Development Department') }}</a>
