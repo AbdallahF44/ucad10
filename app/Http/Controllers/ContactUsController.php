@@ -38,41 +38,18 @@ class ContactUsController extends Controller
         $contactUs->status = ContactUs::STATUS_UNREAD;
 
         $contactUs->save();
-        // $this->sendEmail($request);
-
-        //send Email
-        // $formData = $request->all();
-        
-        
+      
         try {
             Config::set('mail.mailer', 'sendmail'); // Use the sendmail mailer
             Mail::to('ba.abuzubaida@std.alaqsa.edu.ps')->send(new ContactUsEmail($validatedData));
             Log::info('Email sent successfully');
-            // return response('تم إرسال الرسالة بنجاح');
             return redirect()->back()->with('success', 'تم إرسال الرسالة بنجاح');
 
         } catch (\Exception $e) {
             Log::error('Error sending email: ' . $e->getMessage());
-            return response('حدث خطأ أثناء إرسال الرسالة'. $e->getMessage());  
+            return response('حدث خطأ أثناء إرسال الرسالة');  
               }
 
-
-        // return redirect()->back()->with('success', 'تم إرسال الرسالة بنجاح');
     }
-    // public function sendEmail(Request $request)
-    // {
-    //     $formData = $request->all(); 
-    //     Config::set('mail.mailer', 'sendmail'); // Use the sendmail mailer
-
-
-    // try {
-    //     Mail::to('ba.abuzubaida@std.alaqsa.edu.ps')->send(new ContactUsEmail($formData));
-    //     echo 'sent successfully';
-    // } catch (\Exception $e) {
-    //     echo 'Error: ' . $e->getMessage();
-    // }
-
-
-
-    // }
+ 
 }

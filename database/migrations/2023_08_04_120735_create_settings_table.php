@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            // $table->string('key')->unique();
             // $table->text('value')->nullable();
             $table->softDeletes();
             $table->timestamps();
